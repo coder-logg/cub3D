@@ -1,17 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/22 21:28:21 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/20 03:02:32 by cshanda          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
+//#include "cub3d.h"
 #include <printf.h>
-#include "libfdf.h"
+#include "cub3d.h"
 
 void	ClearVar(t_vars *vars)
 {
@@ -21,36 +10,26 @@ void	ClearVar(t_vars *vars)
 	free(vars->img);
 	free(vars->win);
 	free(vars->mlx);
-	free(vars);
+//	free(vars);
 }
 
-int	main(int argv, char **args)
+int	main(int argc, char **argv)
 {
-	t_pozition2D	display_size;
-	char			*path;
-	t_vars			*vars;
+	t_vars	vars;
 
-	/*if (argv < 2)
-		ft_assert("No path!");
-	path = args[1];*/ //todo Раскоментить после добавления считывания файла
-	path = malloc(1);
-	path[0]=0;
-
-	if (argv == 4)
+	(void)argc;
+	if (argc != 2)
 	{
-		display_size.x = ft_atoi(args[2]);
-		display_size.y = ft_atoi(args[3]);
+		ft_putendl_fd("usage: ./cub3d [path to input file]", 1);
+		return (0);
 	}
-	else
-	{
-		display_size.x = 800;
-		display_size.y = 600;
-	}
-	vars = create_vars(display_size, path);
-	main_(vars);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img, 0, 0);
-	createHook(vars);
-	ClearVar(vars);
+//	parser(&vars, argv[1]);
+//	printf("%p, %p, %p,", vars.texs[0], vars.texs[1], vars.texs[2]);
+	init_vars(&vars, argv[1]);
+	createTextyres(&vars);
+	main_(&vars);
+	mlx_put_image_to_window(vars.mlx, vars.win, vars.img->img, 0, 0);
+	createHook(&vars);
+//	ClearVar(&vars);
 	return (0);
 }
-

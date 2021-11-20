@@ -6,18 +6,19 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/24 21:37:12 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/20 04:47:30 by cshanda          ###   ########.fr       */
+/*   Updated: 2021/11/20 15:17:27 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFDF_H
-# define LIBFDF_H
+#ifndef CUB3D_H
+# define CUB3D_H
 # include <stdlib.h>
 # include <math.h>
 # include <fcntl.h>
-# include "mlx.h"
+# include <string.h>
+# include "minilibx/mlx.h"
 # include "libft/libft.h"
-# include "gnl/libgnl.h"
+# include <errno.h>
 
 #define KEY_LEFT 123
 #define KEY_RIGHT 124
@@ -35,10 +36,12 @@
 #define mapHeight 24
 typedef long Uint32;
 typedef signed int			t_i32;
+
 typedef enum e_bool{
 	false,
 	true
 } bool;
+
 typedef struct s_data
 {
 	void			*img;
@@ -65,7 +68,6 @@ typedef struct s_point
 {
 	double				x;
 	double				y;
-
 }					t_point;
 
 typedef struct s_vars
@@ -74,15 +76,17 @@ typedef struct s_vars
 	void			*win;
 	t_data			*img;
 	int				**worldMap;
+	int				color_floor;
+	int				color_ceiling;
 	Uint32			**buff;
-	Uint32  		**texs;
+	long			*texs[4];
 	t_pozition2D	display;
 	t_point			pozition;
 	t_point			dir;
 	t_point			plane;
 	int				texWidth;
 	int				texHeight;
-	char			ыефкеЩrientation;
+	char			startOrientation;
 	int				Floor_color;
 	int				Ceilling_color;
 	double 			gorizont;
@@ -91,16 +95,21 @@ typedef struct s_vars
 	t_point			mappSize;
 }					t_vars;
 
-void		geom_pixel_put(t_data *data, t_point2D point);
-int			close_prog(int keycode, t_vars *vars);
-int			key_hook(int k, t_vars *vars);
-int			mous_hook(int button, int x, int y, t_vars *vars);
-t_vars		*create_vars(t_pozition2D d_size, char *path);
-void		createTextyres(t_vars *vars);
-void		ft_assert(char *err);
-void		createHook(t_vars *var);
-int	geom_pixel_get(t_data *data, int x, int y);
-void main_(t_vars *vars);
-Uint32 *geom_textyre_get(t_vars *vars, char *relative_path);
-int worldMap[mapWidth][mapHeight];//todo
+void	geom_pixel_put(t_data *data, t_point2D point);
+int		close_prog(int keycode, t_vars *vars);
+int		key_hook(int k, t_vars *vars);
+int		mous_hook(int button, int x, int y, t_vars *vars);
+t_vars *init_vars(t_vars *vars, char *path);
+void	createTextyres(t_vars *vars);
+void	ft_assert(char *err);
+void	createHook(t_vars *var);
+int		geom_pixel_get(t_data *data, int x, int y);
+void	main_(t_vars *vars);
+Uint32	*geom_textyre_get(t_vars *vars, char *relative_path);
+int		worldMap[mapWidth][mapHeight];//todo
+
+void	set_free(void **var, void *new);
+void	*chmllc(void *ptr);
+int		parser(t_vars *cub, char *path);
+
 #endif

@@ -1,8 +1,4 @@
-
-#include <stdlib.h>
-#include <printf.h>
-#include "libfdf.h"
-#include "math.h"
+#include "cub3d.h"
 
 void clearBuff(t_vars *vars)
 {
@@ -10,7 +6,6 @@ void clearBuff(t_vars *vars)
 		for(int x = 0; x < (int)vars->display.x; x++)
 			vars->buff[y][x] = 0;
 }
-
 
 void main_(t_vars *vars)
 {

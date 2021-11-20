@@ -6,12 +6,12 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 03:43:48 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/20 06:26:19 by cshanda          ###   ########.fr       */
+/*   Updated: 2021/11/20 15:34:42 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <printf.h>
-#include "libfdf.h"
+#include "cub3d.h"
 
 void rotate(t_vars *v, int keycode)
 {
@@ -113,8 +113,8 @@ int	close_prog(int keycode, t_vars *vars)
 	//clear_mas2d(vars->mass.mass, vars->mass.param.max_y);//todo
 	free(vars->img);
 	free(vars->mlx);
-	free(vars);
-	exit(1);
+//	free(vars);
+	exit(0);
 	return (0);
 }
 

@@ -6,11 +6,11 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 02:40:35 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/20 04:47:30 by cshanda          ###   ########.fr       */
+/*   Updated: 2021/11/20 15:18:02 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libfdf.h"
+#include "cub3d.h"
 #include "printf.h"
 int worldMap[mapWidth][mapHeight]=
 		{
@@ -50,23 +50,25 @@ void ft_assert(char *text)
 void createTextyres(t_vars *vars) ///todo
 {
 
-	vars->texs = malloc(sizeof(Uint32)*4);
-	if (!vars->texs)
-		ft_assert("malloc err");
+//	vars->texs = malloc(sizeof(Uint32)*4);
+//	if (!vars->texs)
+//		ft_assert("malloc err");
 	vars->texs[0] = geom_textyre_get(vars, "./img/redbrick.xpm");
 	vars->texs[1] = geom_textyre_get(vars, "./img/bluestone.xpm");
 	vars->texs[2] = geom_textyre_get(vars, "./img/purplestone.xpm");
 	vars->texs[3] = geom_textyre_get(vars, "./img/greystone.xpm");
 }
 
-t_vars	*create_vars(t_pozition2D d_size, char *path) ///todo
+t_vars *init_vars(t_vars *vars, char *path) ///todo
 {
-	t_vars	*vars;
 	(void) path;
+	t_pozition2D	d_size;
 
-	vars = malloc(sizeof(t_vars));
-	if (!vars)
-		ft_assert("malloc err");
+	d_size.x = 800;
+	d_size.y = 600;
+//	vars = malloc(sizeof(t_vars));
+//	if (!vars)
+//		ft_assert("malloc err");
 	vars->worldMap = malloc(sizeof(int *) * mapWidth * mapHeight);
 	if (!vars->worldMap)
 		ft_assert("malloc err");
