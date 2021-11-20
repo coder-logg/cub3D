@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/24 21:37:12 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/19 20:42:49 by cshanda          ###   ########.fr       */
+/*   Updated: 2021/11/20 04:47:30 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,13 @@ typedef struct s_vars
 	t_point			plane;
 	int				texWidth;
 	int				texHeight;
+	char			ыефкеЩrientation;
+	int				Floor_color;
+	int				Ceilling_color;
+	double 			gorizont;
+	double			moveSpeed;
+	double			rotSpeed;
+	t_point			mappSize;
 }					t_vars;
 
 void		geom_pixel_put(t_data *data, t_point2D point);

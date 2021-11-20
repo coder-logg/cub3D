@@ -4,9 +4,6 @@
 #include "libfdf.h"
 #include "math.h"
 
-
-double moveSpeed = 1;
-
 void clearBuff(t_vars *vars)
 {
 	for(int y = 0; y < (int) vars->display.y; y++)
@@ -14,22 +11,7 @@ void clearBuff(t_vars *vars)
 			vars->buff[y][x] = 0;
 }
 
-void createTextyres(t_vars *vars)
-{
 
-	vars->texs = malloc(sizeof(Uint32)*8);
-	if (!vars->texs)
-		ft_assert("malloc err");
-
-		vars->texs[0] = geom_textyre_get(vars, "/Users/cshanda/42/wwww/img/redbrick.xpm");
-		vars->texs[1] = geom_textyre_get(vars, "/Users/cshanda/42/wwww/img/greystone.xpm");
-		vars->texs[2] = geom_textyre_get(vars, "/Users/cshanda/42/wwww/img/purplestone.xpm");
-		vars->texs[3] = geom_textyre_get(vars, "/Users/cshanda/42/wwww/img/bluestone.xpm");
-		vars->texs[4] = geom_textyre_get(vars, "/Users/cshanda/42/wwww/img/redbrick.xpm");
-		vars->texs[5] = geom_textyre_get(vars, "/Users/cshanda/42/wwww/img/redbrick.xpm");
-		vars->texs[6] = geom_textyre_get(vars, "/Users/cshanda/42/wwww/img/redbrick.xpm");
-		vars->texs[7] = geom_textyre_get(vars, "/Users/cshanda/42/wwww/img/redbrick.xpm");
-}
 void main_(t_vars *vars)
 {
 	clearBuff(vars);
@@ -38,7 +20,9 @@ void main_(t_vars *vars)
 	double posY = vars->pozition.y;
 	double dirX = vars->dir.x, dirY = vars->dir.y; //initial direction vector
 	double planeX = vars->plane.x, planeY = vars->plane.y; //the 2d raycaster version of camera plane
-
+	int a;
+	int b;
+	int c_;
 	for(int x = 0; x < (int)vars->display.x; x++)
 	{
 			//calculate ray position and direction
@@ -69,21 +53,34 @@ void main_(t_vars *vars)
 			//calculate step and initial sideDist
 			if(rayDirX < 0)
 			{
+				b=0;
+				a=0;
+				c_=0;
 				stepX = -1;
 				sideDistX = (posX - mapX) * deltaDistX;
 			}
 			else
 			{
+				b=0;
+				a=0;
+				c_=1;
 				stepX = 1;
 				sideDistX = (mapX + 1.0 - posX) * deltaDistX;
 			}
+
 			if(rayDirY < 0)
 			{
+				b=0;
+				a=3;
+
 				stepY = -1;
 				sideDistY = (posY - mapY) * deltaDistY;
 			}
 			else
 			{
+				b=2;
+				a=0;
+
 				stepY = 1;
 				sideDistY = (mapY + 1.0 - posY) * deltaDistY;
 			}
@@ -104,7 +101,7 @@ void main_(t_vars *vars)
 					side = 1;
 				}
 				//Check if ray has hit a wall
-				if(worldMap[mapX][mapY] > 0) hit = 1;
+				if(vars->worldMap[mapX][mapY] > 0) hit = 1;
 			}
 
 			//Calculate distance of perpendicular ray (Euclidean distance would give fisheye effect!)
@@ -124,7 +121,7 @@ void main_(t_vars *vars)
 			if(drawEnd >= (int)vars->display.y) drawEnd = vars->display.y - 1;
 
 			//texturing calculations
-			int texNum = worldMap[mapX][mapY] - 1; //1 subtracted from it so that texture 0 can be used!
+			///!!int texNum = worldMap[mapX][mapY] - 1; //1 subtracted from it so that texture 0 can be used!
 
 			//calculate value of wallX
 			double wallX; //where exactly the wall was hit
@@ -147,27 +144,36 @@ void main_(t_vars *vars)
 				// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
 				int texY = (int)texPos & (vars->texHeight - 1);
 				texPos += step;
-				//vars->texs[texNum][vars->texHeight * texY + texX
-				Uint32 color = vars->texs[texNum][vars->texHeight * texY + texX];
+				Uint32 color = vars->texs[side*(b+a)+(!side)*c_][vars->texHeight * texY + texX];
 				//make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
-				if(side == 1) color = (color >> 1) & 8355711;
+				//if(side == 1) color = (color >> 1) & 8355711;
+				if (!color)
+					color=1;
 				vars->buff[y][x] = color;
 			}
 		}
-		int i=0;
-		int j;
-		while(i < vars->display.y)
+	int i=0;
+	int j;
+
+	while(i < vars->display.y)
+	{
+		j=0;
+		while(j < vars->display.x)
 		{
-			j=0;
-			while(j < vars->display.x)
+			t_point2D p;
+			p.a = j;
+			p.b =i;
+			p.color = vars->buff[i][j];
+			if (!p.color)
 			{
-				t_point2D p;
-				p.a = j;
-				p.b =i;
-				p.color = vars->buff[i][j];
-				geom_pixel_put(vars->img, p);
-				j++;
+				if (i < vars->gorizont)
+					p.color=vars->Ceilling_color;
+				else
+					p.color=vars->Floor_color;
 			}
-			i++;
+			geom_pixel_put(vars->img, p);
+			j++;
 		}
+		i++;
+	}
 }
