@@ -1,4 +1,5 @@
-#include "cub3d.h"
+//#include "cub3d.h"
+#include "libfdf.h"
 
 char 	*get_key(char *line)
 {
@@ -140,7 +141,7 @@ bool check_path(char *path, char *key)
 	return (true);
 }
 
-void set_param_val(t_cub *cub, t_inf_type inf_id, char *val, char *key)
+void set_param_val(t_vars *cub, t_inf_type inf_id, char *val, char *key)
 {
 	int		ts[2];
 
@@ -158,7 +159,7 @@ void set_param_val(t_cub *cub, t_inf_type inf_id, char *val, char *key)
 		cub->color_ceiling = get_color(val, key);
 }
 
-int	read_params(t_cub *cub, int fd)
+int	read_params(t_vars *cub, int fd)
 {
 	char	*line;
 	char	*key;
@@ -179,7 +180,7 @@ int	read_params(t_cub *cub, int fd)
 	return (1);
 }
 
-int	parser(t_cub *cub, char *path)
+int	parser(t_vars *cub, char *path)
 {
 	int		fd;
 //	char	*line;
@@ -196,6 +197,6 @@ int	parser(t_cub *cub, char *path)
 	}
 	read_params(cub, fd);
 //	int inf_type = check_key(line);
-	cub->textures.ea = NULL;
+//	cub->textures.ea = NULL;
 	return (0);
 }

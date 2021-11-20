@@ -55,9 +55,9 @@ typedef struct s_cub
 	int			**worldMap;
 	long		**buff;
 	long 		*texs[4];
-}				t_cub;
+}				t_vars;
 
-int		parser(t_cub *cub, char *path);
+int		parser(t_vars *cub, char *path);
 void	set_free(void **var, void *new);
 void	*chmllc(void *ptr);
 
