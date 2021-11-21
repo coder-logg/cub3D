@@ -6,12 +6,12 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 04:16:26 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/21 04:45:13 by cshanda          ###   ########.fr       */
+/*   Updated: 2021/11/21 04:46:30 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
 
-void	geom_pixel_put(t_data *data, t_point2D point)
+void	geom_pixel_put(t_data *data, t_point2d point)
 {
 	char	*dst;
 

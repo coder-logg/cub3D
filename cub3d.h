@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/24 21:37:12 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/21 04:24:46 by cshanda          ###   ########.fr       */
+/*   Updated: 2021/11/21 09:13:14 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 #define amount_textures 4
 #define mapWidth 24
 #define mapHeight 24
-
+#define pitch 100
 typedef long		t_uint32;
 typedef signed int	t_i32;
 
@@ -61,13 +61,36 @@ typedef struct s_point2D
 	int				a;
 	int				b;
 	int				color;
-}					t_point2D;
+}					t_point2d;
 
 typedef struct s_point
 {
 	double				x;
 	double				y;
 }					t_point;
+
+typedef struct s_dist
+{
+	t_point delta;
+	t_point side;
+}				t_dist;
+
+typedef struct s_param_gem
+{
+	t_point pos;
+	t_point dir;
+	t_point plane;
+	t_point ray_dir;
+	t_pozition2d map;
+	t_pozition2d step;
+}				t_param_gem;
+
+typedef struct s_param_x_a_r_s
+{
+	int side;
+	t_point ray_dir;
+	t_pozition2d x_a;
+}				t_param_x_a_r_s;
 
 typedef struct s_vars
 {
@@ -91,9 +114,10 @@ typedef struct s_vars
 	double			move_speed;
 	double			rot_speed;
 	t_point			mapp_size;
+	t_dist			dist;
 }					t_vars;
 
-void		geom_pixel_put(t_data *data, t_point2D point);
+void		geom_pixel_put(t_data *data, t_point2d point);
 int			close_prog(int keycode, t_vars *vars);
 int			key_hook(int k, t_vars *vars);
 int			mous_hook(int button, int x, int y, t_vars *vars);
@@ -110,4 +134,9 @@ void		set_free(void **var, void *new);
 void		*chmllc(void *ptr);
 int			parser(t_vars *cub, char *path);
 void		clear_var(t_vars *vars, t_bool del_img);
+void		display_put(t_vars *vars);
+void		create_y(t_vars *vars, t_point pos, t_param_x_a_r_s x);
+int			create_side(t_vars *vars, t_pozition2d *map, t_pozition2d step);
+void		clear_buff(t_vars *vars, t_param_gem *geom);
+int			*write_dist_side(t_vars *vars, t_pozition2d map, t_pozition2d *step, t_point pos, t_point ray_dir);
 #endif
