@@ -17,7 +17,7 @@ void	clear_var(t_vars *vars, t_bool del_img)
 	int	i;
 
 	i = 0;
-	while (i < amount_textures)
+	while (i < AMOUNT_TEXTURES)
 		free(vars->texs[i++]);
 	i = 0;
 	while (i < vars->display.y)
@@ -62,7 +62,7 @@ int	main(int argv, char **args)
 		display_size.y = 600;
 	}
 	vars = create_vars(display_size, path);
-	main_(vars);
+	main_grafic(vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img, 0, 0);
 	create_hook(vars);
 	clear_var(vars, true);

@@ -70,7 +70,7 @@ int	key_hook(int k, t_vars *vars)
 	vars->img->addr = mlx_get_data_addr(vars->img->img,
 			&vars->img->bits_per_pixel, &vars->img->line_length,
 			&vars->img->endian);
-	main_(vars);
+	main_grafic(vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img, 0, 0);
 	return (0);
 }
@@ -93,7 +93,7 @@ int	mous_hook(int button, int x, int y, t_vars *vars)
 	vars->img->addr = mlx_get_data_addr(vars->img->img \
 		, &vars->img->bits_per_pixel, &vars->img->line_length \
 		, &vars->img->endian);
-	main_(vars);
+	main_grafic(vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img, 0, 0);
 	return (0);
 }

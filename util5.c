@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:06:37 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/21 09:40:30 by cshanda          ###   ########.fr       */
+/*   Updated: 2021/11/21 11:10:48 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ void	display_put(t_vars *vars)
 	}
 }
 
-int	create_side(t_vars *vars, t_pozition2d *map, t_pozition2d step)
+void	create_side(t_vars *vars, t_pozition2d *map, t_pozition2d step
+					, int	*side)
 {
-	int	side;
 	int	hit;
 
 	hit = 0;
@@ -80,17 +80,20 @@ int	create_side(t_vars *vars, t_pozition2d *map, t_pozition2d step)
 		if (vars->dist.side.x < vars->dist.side.y)
 		{
 			vars->dist.side.x += vars->dist.delta.x;
+			if (!step.x)
+				step.x = -1;
 			map->x += step.x;
-			side = 0;
+			*side = 0;
 		}
 		else
 		{
 			vars->dist.side.y += vars->dist.delta.y;
+			if (!step.y)
+				step.y = -1;
 			map->y += step.y;
-			side = 1;
+			*side = 1;
 		}
 		if (vars->world_map[map->x][map->y] > 0)
 			hit = 1;
 	}
-	return (side);
 }

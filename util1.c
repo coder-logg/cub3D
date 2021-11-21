@@ -6,13 +6,13 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 02:40:35 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/21 04:22:49 by cshanda          ###   ########.fr       */
+/*   Updated: 2021/11/21 11:42:49 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "printf.h"
-int worldMap[mapWidth][mapHeight]=
+int worldMap[MAP_WIDTH][MAP_HEIGHT]=
 		{
 		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 		{1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -63,18 +63,18 @@ t_vars	*create_vars(t_pozition2d d_size, char *path) ///todo
 	vars = malloc(sizeof(t_vars));
 	if (!vars)
 		ft_assert("malloc err");
-	vars->world_map = malloc(sizeof(int *) * mapWidth * mapHeight);
+	vars->world_map = malloc(sizeof(int *) * MAP_WIDTH * MAP_HEIGHT);
 	if (!vars->world_map)
 		ft_assert("malloc err");
 	int i,j;
 	i=0;
-	while (i < mapWidth)
+	while (i < MAP_WIDTH)
 	{
 		j=0;
-		vars->world_map[i] = malloc(sizeof(int) * mapHeight);
+		vars->world_map[i] = malloc(sizeof(int) * MAP_HEIGHT);
 		if (!vars->world_map[i])
 			ft_assert("malloc err");
-		while (j < mapHeight)
+		while (j < MAP_HEIGHT)
 		{
 			vars->world_map[i][j] =  worldMap[i][j];
 			j++;
@@ -93,8 +93,8 @@ t_vars	*create_vars(t_pozition2d d_size, char *path) ///todo
 		i++;
 	}
 
-	vars->mapp_size.x = mapWidth;///todo заменить на реальные размеры карты
-	vars->mapp_size.y = mapHeight;///
+	vars->mapp_size.x = MAP_WIDTH;///todo заменить на реальные размеры карты
+	vars->mapp_size.y = MAP_HEIGHT;///
 	vars->pozition.x=1.01; /// минимальная точка
 	vars->pozition.y=1.01;///
 
