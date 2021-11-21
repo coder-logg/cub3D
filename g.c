@@ -96,7 +96,7 @@ void main_(t_vars *vars)
 					side = 1;
 				}
 				//Check if ray has hit a wall
-				if(vars->worldMap[mapX][mapY] > 0) hit = 1;
+				if(vars->world_map[mapX][mapY] > 0) hit = 1;
 			}
 
 			//Calculate distance of perpendicular ray (Euclidean distance would give fisheye effect!)
@@ -116,7 +116,7 @@ void main_(t_vars *vars)
 			if(drawEnd >= (int)vars->display.y) drawEnd = vars->display.y - 1;
 
 			//texturing calculations
-			///!!int texNum = worldMap[mapX][mapY] - 1; //1 subtracted from it so that texture 0 can be used!
+			///!!int texNum = world_map[mapX][mapY] - 1; //1 subtracted from it so that texture 0 can be used!
 
 			//calculate value of wallX
 			double wallX; //where exactly the wall was hit
@@ -125,21 +125,21 @@ void main_(t_vars *vars)
 			wallX -= floor((wallX));
 
 			//x coordinate on the texture
-			int texX = (int)(wallX * (double)(vars->texWidth));
-			if(side == 0 && rayDirX > 0) texX = vars->texWidth - texX - 1;
-			if(side == 1 && rayDirY < 0) texX = vars->texWidth - texX - 1;
+			int texX = (int)(wallX * (double)(vars->tex_width));
+			if(side == 0 && rayDirX > 0) texX = vars->tex_width - texX - 1;
+			if(side == 1 && rayDirY < 0) texX = vars->tex_width - texX - 1;
 
 			// TODO: an integer-only bresenham or DDA like algorithm could make the texture coordinate stepping faster
 			// How much to increase the texture coordinate per screen pixel
-			double step = 1.0 * vars->texHeight / lineHeight;
+			double step = 1.0 * vars->tex_height / lineHeight;
 			// Starting texture coordinate
 			double texPos = (drawStart - pitch - vars->display.y / 2 + lineHeight / 2) * step;
 			for(int y = drawStart; y < drawEnd; y++)
 			{
-				// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
-				int texY = (int)texPos & (vars->texHeight - 1);
+				// Cast the texture coordinate to integer, and mask with (tex_height - 1) in case of overflow
+				int texY = (int)texPos & (vars->tex_height - 1);
 				texPos += step;
-				Uint32 color = vars->texs[side*(b+a)+(!side)*c_][vars->texHeight * texY + texX];
+				t_uint32 color = vars->texs[side * (b + a) + (!side) * c_][vars->tex_height * texY + texX];
 				//make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
 				//if(side == 1) color = (color >> 1) & 8355711;
 				if (!color)
@@ -162,9 +162,9 @@ void main_(t_vars *vars)
 			if (!p.color)
 			{
 				if (i < vars->gorizont)
-					p.color=vars->Ceilling_color;
+					p.color=vars->ceilling_color;
 				else
-					p.color=vars->Floor_color;
+					p.color=vars->floor_color;
 			}
 			geom_pixel_put(vars->img, p);
 			j++;

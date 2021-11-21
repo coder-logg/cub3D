@@ -86,7 +86,7 @@ char	*ft_itoa(int n)
 	{
 		result = malloc(sizeof(char) * 2);
 		if (!result)
-			return(result);
+			return (result);
 		result[0] = '0';
 		result[1] = '\0';
 		return (result);

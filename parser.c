@@ -82,7 +82,7 @@ void	invalid_value(char *key, char *msg)
 int	find_next_number(const char *val)
 {
 	int i;
-	bool s;
+	t_bool s;
 
 	i = -1;
 	s = false;
@@ -133,7 +133,7 @@ int	get_color(char *val, char *key)
 	return (rgb[0] && rgb[1] && rgb[2]);
 }
 
-bool check_path(char *path, char *key)
+t_bool check_path(char *path, char *key)
 {
 	int		fd;
 	char	*msg;
