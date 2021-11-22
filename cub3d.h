@@ -1,12 +1,46 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libfdf.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/06/24 21:37:12 by cshanda           #+#    #+#             */
+/*   Updated: 2021/11/22 11:29:19 by                  ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
+# include <stdlib.h>
+# include <math.h>
+# include <fcntl.h>
+# include <string.h>
 # include "minilibx/mlx.h"
 # include "libft/libft.h"
-# include <string.h>
-# include <stdbool.h>
+# include <errno.h>
 
-# define WIN_HEIGHT 1000
-# define WIN_WIDTH 1500
+# define KEY_LEFT 123
+# define KEY_RIGHT 124
+# define KEY_UP  126
+# define KEY_DOWAN  125
+# define KEY_W  13
+# define KEY_S  1
+# define KEY_D  2
+# define KEY_A  0
+# define KEY_ESK 53
+# define TEXS_NBR 4
+//#define texWidth 64
+//#define texHeight 64
+#define mapWidth 24
+#define mapHeight 24
+typedef long Uint32;
+typedef signed int			t_i32;
+
+typedef enum e_bool{
+	false,
+	true
+} bool;
 
 typedef struct s_data
 {
@@ -17,48 +51,66 @@ typedef struct s_data
 	int				endian;
 }					t_data;
 
-typedef struct s_textures
+typedef struct s_pozition2D
 {
-	void	*no;
-	void	*so;
-	void	*we;
-	void	*ea;
-}				t_textures;
+	int			x;
+	int			y;
+}					t_pozition2D;
 
-typedef struct s_matrix
+typedef struct s_point2D
 {
-	char	**matrix;
-	int		m_width;
-	int		m_height;
-}				t_matrix;
+	int				a;
+	int				b;
+	int				color;
+}					t_point2D;
 
-typedef enum e_inf_type
+typedef struct s_point
 {
-	NO = 109,
-	SO,
-	WE,
-	EA,
-	F,
-	C
-}			t_inf_type;
+	double				x;
+	double				y;
+}					t_point;
 
-
-
-typedef struct s_cub
+typedef struct s_vars
 {
-	void		*mlx;
-	void		*win;
-	t_data		*img;
-	t_textures	textures;
-	int			color_floor;
-	int			color_ceiling;
-	int			**worldMap;
-	long		**buff;
-	long 		*texs[4];
-}				t_vars;
+	void			*mlx;
+	void			*win;
+	t_data			*img;
+	int				**worldMap;
+	Uint32			**buff;
+	long			*texs[TEXS_NBR];
+	t_pozition2D	display;
+	t_point			pozition;
+	t_point			dir;
+	t_point			plane;
+	int				texWidth;
+	int				texHeight;
+	char			startOrientation;
+	int				color_floor;
+	int				color_ceiling;
+	double 			gorizont;
+	double			moveSpeed;
+	double			rotSpeed;
+	t_point			mappSize;
+}					t_vars;
 
-int		parser(t_vars *cub, char *path);
+void	geom_pixel_put(t_data *data, t_point2D point);
+int		close_prog(int keycode, t_vars *vars);
+int		key_hook(int k, t_vars *vars);
+int		mous_hook(int button, int x, int y, t_vars *vars);
+t_vars *init_vars(t_vars *vars, char *path);
+void	createTextyres(t_vars *vars);
+void	ft_assert(char *err);
+void	createHook(t_vars *var);
+int		geom_pixel_get(t_data *data, int x, int y);
+void	main_(t_vars *vars);
+Uint32	*geom_textyre_get(t_vars *vars, char *relative_path);
+int		**worldMap;//todo
+
 void	set_free(void **var, void *new);
 void	*chmllc(void *ptr);
+int		parser(t_vars *vars, char *path);
+void	error(char *msg);
+int		read_params(t_vars *vars, int fd);
+int		get_line(int fd, char **dst);
 
 #endif

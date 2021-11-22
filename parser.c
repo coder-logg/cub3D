@@ -1,186 +1,258 @@
 //#include "cub3d.h"
-#include "libfdf.h"
+#include <printf.h>
+#include "cub3d.h"
+#define START_POS 156
 
-char 	*get_key(char *line)
+int	**intarr_add(int **arr, size_t arrlen, int *new)
 {
-	char	*ptr;
+	int	**new_arr;
 
-	ptr = (char *)max((long)ft_strchr(line, ' '), (long)ft_strchr(line, '\t'));
-	return chmllc(ft_substr(line, 0, ptr - line));
+	new_arr = chmllc(ft_calloc(arrlen + 2, sizeof(int *)));
+	if (!new_arr || !new)
+		return (NULL);
+	if (arrlen >= 1 && arr)
+		ft_memcpy(new_arr, arr, sizeof(int *) * arrlen);
+	new_arr[arrlen] = new;
+	new_arr[arrlen + 1] = NULL;
+	if (arr)
+		free(arr);
+	return (new_arr);
 }
 
-char *get_line(int fd)
+char	*chstr(char c)
 {
-	static char	*line = NULL;
-	int			gnl_ret;
+	static char	chstr[2] = {0, 0};
 
-	free(line);
+	if (c >= 0)
+		chstr[0] = c;
+	return (chstr);
+}
+
+void invalid_map(char *str, int i, int j)
+{
+	char *tmp;
+	char *tmp1;
+
+	tmp = " [";
+	tmp1 = chmllc(ft_itoa(i));
+	tmp = chmllc(ft_strjoin(tmp, tmp1));
+	set_free((void **)&tmp1, chmllc(ft_itoa(j)));
+	set_free((void **)&tmp, ft_strjoin(tmp, " : "));
+	set_free((void **)&tmp, ft_strjoin(tmp, tmp1));
+	free(tmp1);
+	set_free((void **)&tmp, ft_strjoin(tmp, "]"));
+	error(chmllc(ft_strjoin(str, tmp)));
+}
+
+void init_point(t_point *point, double x, double y)
+{
+	ft_bzero(point, sizeof(*point));
+	point->x = x;
+	point->y = y;
+}
+
+t_point get_offset(const t_vars *vars, int i, int j)
+{
+	t_point offset;
+
+	ft_bzero(&offset, sizeof(offset));
+	if (i > 0 && j > 0)
+	{
+		if (vars->worldMap[j][i - 1] == 1) // may be error
+			offset.x = 0.01;
+		if (vars->worldMap[j - 1][i] == 1) // may be error
+			offset.y = 0.01;
+	}
+	return (offset);
+}
+
+void set_pos_params(t_vars *vars, char c, int i, int j)
+{
+	t_point offset = get_offset(vars, i, j);
+
+	if (vars->pozition.x != -1 || vars->pozition.y != -1)
+		invalid_map("Invalid input file: invalid map:"
+					" multiple position definition", i, j);
+	init_point(&vars->pozition, i + offset.x, j + offset.y);
+	if (c == 'N')
+	{
+		init_point(&vars->plane, 0, 0.66);
+		init_point(&vars->dir, -1, 0);
+	}
+	else if (c == 'S')
+	{
+		init_point(&vars->plane, 0.038527, -0.658875);
+		init_point(&vars->dir, 0.998295, 0.058374);
+	}
+	else if (c == 'W')
+	{
+		init_point(&vars->plane, -0.659994, 0.002921);
+		init_point(&vars->dir, -0.004426, -0.999990);
+	}
+	else if (c == 'E')
+	{
+		init_point(&vars->plane, 0.659544, 0.024525);
+		init_point(&vars->dir, -0.037158, 0.999309);
+	}
+}
+
+int	arr_len(int **arr)
+{
+	int	i;
+
+	i = 0;
+	if (!arr)
+		return (0);
+	while (arr[i] != NULL)
+		i++;
+	return (i);
+}
+
+int	**extend_map(int **arr, int prev_len, int new_len)
+{
+	int	arr_length;
+	int	i;
+	int	j;
+	int	**new_arr;
+
+	arr_length = arr_len(arr);
+	new_arr = chmllc(ft_calloc(arr_length + 1, sizeof(int *)));
+	new_arr[arr_length] = NULL;
+	i = -1;
+	while (++i < arr_length)
+	{
+		new_arr[i] = chmllc(ft_calloc(new_len, sizeof(int)));
+		ft_memcpy(new_arr[i], arr[i], prev_len);
+		j = prev_len;
+		while (j < new_len)
+			new_arr[i][j++] = -1;
+		free(arr[i]);
+	}
+	free(arr);
+	return (new_arr);
+}
+
+char	*chrdup(char ch, unsigned int len)
+{
+	char	*new_str;
+
+	new_str = malloc(sizeof(char) * (len + 1));
+	if (!new_str)
+		return (NULL);
+	ft_memset(new_str, ch, len);
+	return (new_str);
+}
+
+void	parse_map_line(t_vars *vars, char *line)
+{
+	int	i;
+	int	line_len;
+	static int	j = 0;
+	int	*worldMap_nl;
+
+	line_len = ft_strlen(line);
+	i = -1;
+	if (j == 0)
+		vars->mappSize.x = line_len;
+	if (line_len > vars->mappSize.x)
+		vars->worldMap = extend_map(vars->worldMap, vars->mappSize.x, line_len);
+	else if (line_len < vars->mappSize.x)
+	{
+//		char *buf = chmllc(ft_calloc(vars->mappSize.x, sizeof(char)));
+//		ft_memcpy(buf, line, line_len);
+//		ft_memset(buf + line_len, ' ', vars->mappSize.x - line_len);
+		char *tmp = chmllc(chrdup(' ', vars->mappSize.x - line_len));
+		line = chmllc(ft_strjoin(line,tmp));
+		line_len = vars->mappSize.x;
+	}
+	worldMap_nl = chmllc(ft_calloc(ft_strlen(line), sizeof(int)));
+	vars->worldMap = intarr_add(vars->worldMap, j, worldMap_nl);
+//		error("Invalid map: lines with different lengths");
+	while (++i < line_len)
+	{
+		if (!ft_strchr(" SWNE01", line[i]))
+			invalid_map("Invalid input file: forbidden symbol in map", i, j);
+		if (line[i] == ' ')
+			worldMap_nl[i] = -1;
+		else if (line[i] == '0')
+			worldMap_nl[i] = 0;
+		else if (line[i] == '1')
+			worldMap_nl[i] = 1;
+		else if (ft_strchr("SWEN", line[i]))
+		{
+			set_pos_params(vars, line[i], i, j);
+			worldMap_nl[i] = 0;
+		}
+	}
+	j++;
+	vars->mappSize.y = j;
+}
+
+void	read_map(t_vars *vars, int fd)
+{
+	char	*line;
+	int		count_line;
+	int		line_len;
+	int		column_len;
+	int		gnl_ret;
+	char	*tmp;
+
+	// обрезать карту по длинне самой длинной сроки и столбца
+	// считывать до пустой строки или конца файла
+	column_len = 0;
+	line_len = 0;
 	gnl_ret = 1;
+	count_line = 0;
+	tmp = NULL;
+	vars->pozition.x = -1;
+	vars->pozition.y = -1;
+	vars->mappSize.x = 0;
+	vars->mappSize.y = 0;
 	while (gnl_ret)
 	{
 		gnl_ret = get_next_line(fd, &line);
-		if (!gnl_ret)
+		tmp = chmllc(ft_strtrim(line, " \t"));
+		if (tmp[0])
+		{
+			free(tmp);
 			break ;
-		set_free((void **)&line, chmllc(ft_strtrim(line, " \t")));
-		gnl_ret = 0;
-		if (!line && !line[0])
-			gnl_ret = 1;
+		}
 	}
-	return (line);
-}
-
-void	error(char *msg)
-{
-	ft_putendl_fd("Error", 2);
-	if (msg)
-		ft_putendl_fd(msg, 2);
-	exit(1);
-}
-
-int check_key(char *key)
-{
-	int	res;
-
-	res = -1;
-	if (!ft_strcmp(key, "NO"))
-		res = NO;
-	else if (!ft_strcmp(key, "SO"))
-		res = SO;
-	else if (!ft_strcmp(key, "WE"))
-		res = WE;
-	else if(!ft_strcmp(key, "EA"))
-		res = EA;
-	else if (!ft_strcmp(key, "F"))
-		res = F;
-	else if (!ft_strcmp(key, "C"))
-		res = C;
-	if (res == -1)
-		error(ft_strjoin("Unknown type identifier: ", key));
-	return (res);
-}
-
-void	invalid_value(char *key, char *msg)
-{
-	key = chmllc(ft_strjoin("Invalid value for identifier: ", key));
-	ft_putendl_fd(key, 2);
-	if (msg)
-		ft_putendl_fd(msg, 2);
-	free(key);
-	exit(1);
-}
-
-int	find_next_number(const char *val)
-{
-	int i;
-	bool s;
-
-	i = -1;
-	s = false;
-	while (val[++i])
+	parse_map_line(vars, line);
+	while (gnl_ret)
 	{
-		if (val[i] == ' ' || val[i] == '\t')
-			continue;
-		else if (val[i] == ',' && !s)
-			s = true;
-		else
-			break;
+		gnl_ret = get_next_line(fd, &line);
+		tmp = chmllc(ft_strtrim(line, " \t"));
+		if (!tmp[0])
+		{
+			free(tmp);
+			break ;
+		}
+		parse_map_line(vars, line);
+		free(line);
+		free(tmp);
 	}
-	if (ft_isdigit(val[i]))
-		return (i);
-	else
-		return (-1);
 }
 
-int	get_color(char *val, char *key)
-{
-	int i;
-	int j;
-	int	rgb[3];
+//int	**check_map(int **map, int map_width, int map_height)
+//{
+//	int	i;
+//	int	j;
+//
+//	i = 0;
+//	while (i < map_height)
+//	{
+//		j = 0;
+//		while (j < map_width)
+//		{
+//			if (map[i][j] == -1 )
+//			j++;
+//		}
+//		i++;
+//	}
+//}
 
-	j = 0;
-	rgb[0] = -1;
-	rgb[1] = -1;
-	rgb[2] = -1;
-	while(j < 3 && *val)
-	{
-		i = 0;
-		while (val[i] && ft_isdigit(val[i]))
-			i++;
-		if (i == 0)
-			invalid_value(key, "usage: F(C) R,G,B\n(R, G, B -- integer in range [0,255])");
-		rgb[j] = ft_atoi(val);
-		if (rgb[j] > 255)
-			invalid_value(key, "R,G,B colors should be in range [0,255]");
-		val += i;
-		i = find_next_number(val);
-		if (i == -1)
-			invalid_value(key, NULL);
-		val += i;
-		j++;
-	}
-	if (rgb[2] == -1)
-		invalid_value(key, NULL);
-	return (rgb[0] && rgb[1] && rgb[2]);
-}
-
-bool check_path(char *path, char *key)
-{
-	int		fd;
-	char	*msg;
-
-	fd = open(path, O_RDONLY);
-	if (fd == -1)
-	{
-		if (errno == ENOTDIR)
-			msg = "No such file or directory";
-		else
-			msg = strerror(errno);
-		invalid_value(key, msg);
-	}
-	close(fd);
-	return (true);
-}
-
-void set_param_val(t_vars *cub, t_inf_type inf_id, char *val, char *key)
-{
-	int		ts[2];
-
-	if (inf_id == NO && !cub->texs[0] && check_path(val, key))
-		cub->texs[0] = mlx_png_file_to_image(cub->mlx, val, ts, ts + 1);
-	else if (inf_id == SO && !cub->texs[1] && check_path(val, key))
-		cub->texs[1] = mlx_png_file_to_image(cub->mlx, val, ts, ts + 1);
-	else if (inf_id == WE && !cub->texs[2] && check_path(val, key))
-		cub->texs[2] = mlx_png_file_to_image(cub->mlx, val, ts, ts + 1);
-	else if(inf_id == EA && !cub->texs[3] && check_path(val, key))
-		cub->texs[3] = mlx_png_file_to_image(cub->mlx, val, ts, ts + 1);
-	else if (inf_id == F && cub->color_floor == -1)
-		cub->color_floor = get_color(val, key);
-	else if (inf_id == C && cub->color_ceiling == -1)
-		cub->color_ceiling = get_color(val, key);
-}
-
-int	read_params(t_vars *cub, int fd)
-{
-	char	*line;
-	char	*key;
-	int		inf_type;
-	char	*val;
-
-	cub->color_floor = -1;
-	ft_bzero(cub->texs, 4);
-
-	line = get_line(fd);
-	key = get_key(line);
-	inf_type = check_key(key);
-	val = ft_substr(line + ft_strlen(key), 0, ft_strlen(line) - ft_strlen(key));
-	chmllc(val);
-	set_free((void **)&val, chmllc(ft_strtrim(val, " \t")));
-	set_param_val(cub, inf_type, val, key);
-	free(key);
-	return (1);
-}
-
-int	parser(t_vars *cub, char *path)
+int	parser(t_vars *vars, char *path)
 {
 	int		fd;
 //	char	*line;
@@ -195,8 +267,33 @@ int	parser(t_vars *cub, char *path)
 			msg = strerror(errno);
 		error(msg);
 	}
-	read_params(cub, fd);
+	vars->mlx = mlx_init();
+	read_params(vars, fd);
+	read_map(vars, fd);
+	close(fd);
+//	check_map( vars->worldMap);
+	printf("%p, %p, %p, %p,\n", vars->texs[0], vars->texs[1], vars->texs[2], vars->texs[3]);
+	printf("floor - %d ceiling - %d\n", vars->color_floor, vars->color_ceiling);
+	int i = 0;
+	int j = 0;
+	while (i < vars->mappSize.y)
+	{
+		j = 0;
+		printf("[");
+		while (j < vars->mappSize.x)
+		{
+			if (i == vars->pozition.y && j == vars->pozition.x)
+				printf("\x1b[35m");
+			printf("%2d", vars->worldMap[i][j]);
+			printf("\x1b[0m");
+			j++;
+		}
+		printf("]\n");
+		i++;
+	}
+	printf("%d, mappSize.x = %d, mappSize.y = %d\n", arr_len(vars->worldMap), (int)vars->mappSize.x, (int)vars->mappSize.y);
+	printf("%.2f %.2f\n", vars->pozition.x,  vars->pozition.y);
 //	int inf_type = check_key(line);
-//	cub->textures.ea = NULL;
+//	vars->textures.ea = NULL;
 	return (0);
 }

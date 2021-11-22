@@ -6,11 +6,11 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 04:16:26 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/19 23:32:01 by tphlogis         ###   ########.fr       */
+/*   Updated: 2021/11/22 11:29:19 by tphlogis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libfdf.h"
+#include "cub3d.h"
 
 void	geom_pixel_put(t_data *data, t_point2D point)
 {
