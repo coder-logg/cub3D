@@ -6,36 +6,36 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 11:46:31 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/18 17:09:38 by                  ###   ########.fr       */
+/*   Updated: 2021/11/22 12:13:51 by tphlogis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *big, const char *little, size_t n)
+char	*ft_strnstr(char *s1, char *s2, int lenghth)
 {
 	size_t	i;
 
-	if (little[0] == '\0')
-		return ((char *)big);
-	if (ft_strlen(big) == 0)
+	if (s2[0] == '\0')
+		return ((char *)s1);
+	if (ft_strlen(s1) == 0)
 		return (NULL);
-	while (ft_strlen(little) <= (size_t)n)
+	while (ft_strlen(s2) <= (size_t)lenghth)
 	{
-		if (*big == little[0])
+		if (*s1 == s2[0])
 		{
 			i = 1;
 			while (i > 0)
 			{
-				if (i == ft_strlen(little))
-					return ((char *)big);
-				if (big[i] != little[i])
+				if (i == ft_strlen(s2))
+					return ((char *)s1);
+				if (s1[i] != s2[i])
 					break ;
 				++i;
 			}
 		}
-		--n;
-		++big;
+		--lenghth;
+		++s1;
 	}
 	return (NULL);
 }
