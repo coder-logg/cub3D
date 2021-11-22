@@ -58,9 +58,9 @@ t_point get_offset(const t_vars *vars, int i, int j)
 	ft_bzero(&offset, sizeof(offset));
 	if (i > 0 && j > 0)
 	{
-		if (vars->worldMap[j][i - 1] == 1) // may be error
+		if (vars->world_map[j][i - 1] == 1) // may be error
 			offset.x = 0.01;
-		if (vars->worldMap[j - 1][i] == 1) // may be error
+		if (vars->world_map[j - 1][i] == 1) // may be error
 			offset.y = 0.01;
 	}
 	return (offset);
@@ -148,44 +148,44 @@ void	parse_map_line(t_vars *vars, char *line)
 	int	i;
 	int	line_len;
 	static int	j = 0;
-	int	*worldMap_nl;
+	int	*world_map_nl;
 
 	line_len = ft_strlen(line);
 	i = -1;
 	if (j == 0)
-		vars->mappSize.x = line_len;
-	if (line_len > vars->mappSize.x)
-		vars->worldMap = extend_map(vars->worldMap, vars->mappSize.x, line_len);
-	else if (line_len < vars->mappSize.x)
+		vars->mapp_size.x = line_len;
+	if (line_len > vars->mapp_size.x)
+		vars->world_map = extend_map(vars->world_map, vars->mapp_size.x, line_len);
+	else if (line_len < vars->mapp_size.x)
 	{
-//		char *buf = chmllc(ft_calloc(vars->mappSize.x, sizeof(char)));
+//		char *buf = chmllc(ft_calloc(vars->mapp_size.x, sizeof(char)));
 //		ft_memcpy(buf, line, line_len);
-//		ft_memset(buf + line_len, ' ', vars->mappSize.x - line_len);
-		char *tmp = chmllc(chrdup(' ', vars->mappSize.x - line_len));
+//		ft_memset(buf + line_len, ' ', vars->mapp_size.x - line_len);
+		char *tmp = chmllc(chrdup(' ', vars->mapp_size.x - line_len));
 		line = chmllc(ft_strjoin(line,tmp));
-		line_len = vars->mappSize.x;
+		line_len = vars->mapp_size.x;
 	}
-	worldMap_nl = chmllc(ft_calloc(ft_strlen(line), sizeof(int)));
-	vars->worldMap = intarr_add(vars->worldMap, j, worldMap_nl);
+	world_map_nl = chmllc(ft_calloc(ft_strlen(line), sizeof(int)));
+	vars->world_map = intarr_add(vars->world_map, j, world_map_nl);
 //		error("Invalid map: lines with different lengths");
 	while (++i < line_len)
 	{
 		if (!ft_strchr(" SWNE01", line[i]))
 			invalid_map("Invalid input file: forbidden symbol in map", i, j);
 		if (line[i] == ' ')
-			worldMap_nl[i] = -1;
+			world_map_nl[i] = -1;
 		else if (line[i] == '0')
-			worldMap_nl[i] = 0;
+			world_map_nl[i] = 0;
 		else if (line[i] == '1')
-			worldMap_nl[i] = 1;
+			world_map_nl[i] = 1;
 		else if (ft_strchr("SWEN", line[i]))
 		{
 			set_pos_params(vars, line[i], i, j);
-			worldMap_nl[i] = 0;
+			world_map_nl[i] = 0;
 		}
 	}
 	j++;
-	vars->mappSize.y = j;
+	vars->mapp_size.y = j;
 }
 
 void	read_map(t_vars *vars, int fd)
@@ -206,8 +206,8 @@ void	read_map(t_vars *vars, int fd)
 	tmp = NULL;
 	vars->pozition.x = -1;
 	vars->pozition.y = -1;
-	vars->mappSize.x = 0;
-	vars->mappSize.y = 0;
+	vars->mapp_size.x = 0;
+	vars->mapp_size.y = 0;
 	while (gnl_ret)
 	{
 		gnl_ret = get_next_line(fd, &line);
@@ -271,27 +271,27 @@ int	parser(t_vars *vars, char *path)
 	read_params(vars, fd);
 	read_map(vars, fd);
 	close(fd);
-//	check_map( vars->worldMap);
+//	check_map( vars->world_map);
 	printf("%p, %p, %p, %p,\n", vars->texs[0], vars->texs[1], vars->texs[2], vars->texs[3]);
 	printf("floor - %d ceiling - %d\n", vars->color_floor, vars->color_ceiling);
 	int i = 0;
 	int j = 0;
-	while (i < vars->mappSize.y)
+	while (i < vars->mapp_size.y)
 	{
 		j = 0;
 		printf("[");
-		while (j < vars->mappSize.x)
+		while (j < vars->mapp_size.x)
 		{
 			if (i == vars->pozition.y && j == vars->pozition.x)
 				printf("\x1b[35m");
-			printf("%2d", vars->worldMap[i][j]);
+			printf("%2d", vars->world_map[i][j]);
 			printf("\x1b[0m");
 			j++;
 		}
 		printf("]\n");
 		i++;
 	}
-	printf("%d, mappSize.x = %d, mappSize.y = %d\n", arr_len(vars->worldMap), (int)vars->mappSize.x, (int)vars->mappSize.y);
+	printf("%d, mapp_size.x = %d, mapp_size.y = %d\n", arr_len(vars->world_map), (int)vars->mapp_size.x, (int)vars->mapp_size.y);
 	printf("%.2f %.2f\n", vars->pozition.x,  vars->pozition.y);
 //	int inf_type = check_key(line);
 //	vars->textures.ea = NULL;

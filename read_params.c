@@ -40,14 +40,6 @@ int	get_line(int fd, char **dst)
 	return (0);
 }
 
-void	error(char *msg)
-{
-	ft_putendl_fd("Error", 2);
-	if (msg)
-		ft_putendl_fd(msg, 2);
-	exit(1);
-}
-
 int check_key(char *key)
 {
 	int	res;
@@ -83,7 +75,7 @@ void	invalid_value(char *key, char *msg)
 int	find_next_number(const char *val)
 {
 	int i;
-	bool s;
+	t_bool s;
 
 	i = 0;
 	s = false;
@@ -148,7 +140,7 @@ int	get_color(char *val, char *key)
 	return (rgb(color[0], color[1], color[2]));
 }
 
-bool check_path(char *path, char *key)
+t_bool check_path(char *path, char *key)
 {
 	int		fd;
 	char	*msg;
