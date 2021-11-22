@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 02:40:35 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/20 15:18:02 by                  ###   ########.fr       */
+/*   Updated: 2021/11/22 11:36:13 by tphlogis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,24 +69,24 @@ t_vars *init_vars(t_vars *vars, char *path) ///todo
 //	vars = malloc(sizeof(t_vars));
 //	if (!vars)
 //		ft_assert("malloc err");
-	vars->worldMap = malloc(sizeof(int *) * mapWidth * mapHeight);
-	if (!vars->worldMap)
-		ft_assert("malloc err");
-	int i,j;
-	i=0;
-	while (i < mapWidth)
-	{
-		j=0;
-		vars->worldMap[i] = malloc(sizeof(int) * mapHeight);
-		if (!vars->worldMap[i])
-			ft_assert("malloc err");
-		while (j < mapHeight)
-		{
-			vars->worldMap[i][j] =  worldMap[i][j];
-			j++;
-		}
-		i++;
-	}
+//	vars->worldMap = malloc(sizeof(int *) * mapWidth * mapHeight);
+//	if (!vars->worldMap)
+//		ft_assert("malloc err");
+	int i;
+//	i=0;
+//	while (i < mapWidth)
+//	{
+//		j=0;
+//		vars->worldMap[i] = malloc(sizeof(int) * mapHeight);
+//		if (!vars->worldMap[i])
+//			ft_assert("malloc err");
+//		while (j < mapHeight)
+//		{
+//			vars->worldMap[i][j] =  worldMap[i][j];
+//			j++;
+//		}
+//		i++;
+//	}
 	vars->buff = malloc(sizeof(Uint32 *) * d_size.y);
 	if (!vars->buff)
 		ft_assert("malloc err");
@@ -99,10 +99,10 @@ t_vars *init_vars(t_vars *vars, char *path) ///todo
 		i++;
 	}
 
-	vars->mappSize.x = mapWidth;///todo заменить на реальные размеры карты
-	vars->mappSize.y = mapHeight;///
-	vars->pozition.x=1.1; /// минимальная точка
-	vars->pozition.y=1.1;///
+//	vars->mappSize.x = mapWidth;///todo заменить на реальные размеры карты
+//	vars->mappSize.y = mapHeight;///
+//	vars->pozition.x=1.1; /// минимальная точка
+//	vars->pozition.y=1.1;///
 
 	/// смотрим строго в верх
 	///dir[{x=-1.000000, y=-0.000000} plane{x=-0.000000, y=0.660000}]
@@ -118,8 +118,8 @@ t_vars *init_vars(t_vars *vars, char *path) ///todo
 	vars->dir.x = -1;
 	vars->dir.y = 0;
 
-	vars->Floor_color = 0x000000; /// цвет пола
-	vars->Ceilling_color = 0xffffff; /// цвет потолка
+//	vars->Floor_color = 0x000000; /// цвет пола
+//	vars->Ceilling_color = 0xffffff; /// цвет потолка
 	vars->display.x = d_size.x;
 	vars->display.y = d_size.y;
 	vars->gorizont = vars->display.y/1.47;

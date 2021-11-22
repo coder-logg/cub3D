@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/06 11:47:18 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/20 15:05:51 by                  ###   ########.fr       */
+/*   Updated: 2021/11/21 04:36:30 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	*ft_memmove(void *dest, const void *src, size_t n);
 void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 size_t	ft_strlen(const char *s);
-size_t	ft_strlcpy(char *dest, const char *src, size_t n);
 size_t	ft_strlcat(char *dest, const char *src, size_t size);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
@@ -54,6 +53,7 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 char	**ft_split_size(char const *s, char c, int *size);
+size_t	ft_strlcpy(char *dest, const char *src, size_t n);
 typedef struct s_list
 {
 	void			*content;
