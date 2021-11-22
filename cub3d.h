@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/24 21:37:12 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/20 15:17:27 by                  ###   ########.fr       */
+/*   Updated: 2021/11/22 10:53:24 by tphlogis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ typedef struct s_vars
 	void			*win;
 	t_data			*img;
 	int				**worldMap;
-	int				color_floor;
-	int				color_ceiling;
 	Uint32			**buff;
 	long			*texs[4];
 	t_pozition2D	display;
@@ -87,8 +85,8 @@ typedef struct s_vars
 	int				texWidth;
 	int				texHeight;
 	char			startOrientation;
-	int				Floor_color;
-	int				Ceilling_color;
+	int				color_floor;
+	int				color_ceiling;
 	double 			gorizont;
 	double			moveSpeed;
 	double			rotSpeed;
@@ -106,10 +104,13 @@ void	createHook(t_vars *var);
 int		geom_pixel_get(t_data *data, int x, int y);
 void	main_(t_vars *vars);
 Uint32	*geom_textyre_get(t_vars *vars, char *relative_path);
-int		worldMap[mapWidth][mapHeight];//todo
+int		**worldMap;//todo
 
 void	set_free(void **var, void *new);
 void	*chmllc(void *ptr);
-int		parser(t_vars *cub, char *path);
+int		parser(t_vars *vars, char *path);
+void	error(char *msg);
+int		read_params(t_vars *vars, int fd);
+int		get_line(int fd, char **dst);
 
 #endif
