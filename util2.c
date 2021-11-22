@@ -114,10 +114,10 @@ void	main_grafic(t_vars *vars)
 	while (++x.x_a.x < (int)vars->display.x)
 	{
 		geo.ray_dir.x = geo.dir.x + geo.plane.x \
-			* (2 * x.x_a.x / (double)vars->display.x - 1);
-		geo.ray_dir.y = geo.dir.y + geo.plane.y \
-			* (2 * x.x_a.x / (double)vars->display.x - 1);
-		geo.map.x = (int)(geo.pos.x);
+		* (2 * x.x_a.x / (double)vars->display.x - 1);
+				geo.ray_dir.y = geo.dir.y + geo.plane.y \
+				* (2 * x.x_a.x / (double)vars->display.x - 1);
+						geo.map.x = (int)(geo.pos.x);
 		geo.map.y = (int)(geo.pos.y);
 		is_ray_dir(geo.ray_dir, &vars->dist.delta);
 		geo.step = write_dist_side(vars, geo.map, geo.pos, geo.ray_dir);

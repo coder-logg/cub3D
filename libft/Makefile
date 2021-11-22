@@ -14,7 +14,7 @@ SRCS = 	ft_isprint.c		ft_strlen.c		ft_memchr.c\
 		ft_strcmp.c			ft_lstnew.c		ft_lstsize.c \
 		ft_lstadd_back.c	ft_lstdelone.c	ft_lstclear.c\
 		ft_lstadd_front.c	ft_lstiter.c	ft_lstlast.c \
-		get_next_line.c		max_min.c
+		get_next_line.c		max_min.c		ft_lstmap.c
 
 RM		=	rm -f
 OBJS	=	$(SRCS:.c=.o)

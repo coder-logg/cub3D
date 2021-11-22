@@ -1,44 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/21 03:47:12 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/22 11:38:32 by                  ###   ########.fr       */
+/*   Created: 2021/05/06 11:46:02 by cshanda           #+#    #+#             */
+/*   Updated: 2021/05/06 11:46:04 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "cub3d.h"
 
-void	set_free(void **var, void *new)
+#include "libft.h"
+
+size_t	ft_strlcpy(char *dest, const char *src, size_t n)
 {
-	void	*tmp;
+	const char	*s;
+	size_t		n_;
+	int			g;
 
-	if (var == NULL)
-		return ;
-	if (*var == new)
-		return ;
-	tmp = *var;
-	*var = new;
-	if (tmp)
-		free(tmp);
-}
-
-void	*chmllc(void *ptr)
-{
-	if (ptr == NULL)
+	s = src;
+	n_ = n;
+	if (!dest)
+		return (0);
+	if (n_ != 0)
 	{
-		ft_putstr_fd("malloc error\n", 2);
-		exit(1);
+		while (--n_ != 0)
+		{
+			g = (*dest++ = *s++) == '\0';
+			if (g)
+				break ;
+		}
 	}
-	return (ptr);
-}
-
-void	error(char *msg)
-{
-	ft_putendl_fd("Error", 2);
-	if (msg)
-		ft_putendl_fd(msg, 2);
-	exit(1);
+	if (n_ == 0)
+	{
+		if (n != 0)
+			*dest = '\0';
+		while (*s++)
+			;
+	}
+	return (s - src - 1);
 }

@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 21:28:21 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/21 04:20:49 by cshanda          ###   ########.fr       */
+/*   Updated: 2021/11/22 11:49:10 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,36 +36,25 @@ void	clear_var(t_vars *vars, t_bool del_img)
 	if (del_img)
 		free(vars->win);
 	free(vars->mlx);
-	free(vars);
+//	free(vars);
 }
 
-int	main(int argv, char **args)
+int	main(int argc, char **argv)
 {
-	t_pozition2d	display_size;
-	char			*path;
-	t_vars			*vars;
+	t_vars			vars;
 
-	/*if (argv < 2)
-		ft_assert("No path!");
-	path = args[1];*/ //todo Раскоментить после добавления считывания файла
-	path = malloc(1);
-	path[0]=0;
-
-	if (argv == 4)
+	(void)argc;
+	if (argc != 2)
 	{
-		display_size.x = ft_atoi(args[2]);
-		display_size.y = ft_atoi(args[3]);
+		ft_putendl_fd("usage: ./cub3d [path to input file]", 1);
+		return (0);
 	}
-	else
-	{
-		display_size.x = 800;
-		display_size.y = 600;
-	}
-
-	vars = create_vars(display_size, path);
-	main_grafic(vars);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img, 0, 0);
-	create_hook(vars);
-	clear_var(vars, true);
+	parser(&vars, argv[1]);
+	init_vars(&vars, argv[1]);
+	//	createTextyres(&vars);
+	main_grafic(&vars);
+	mlx_put_image_to_window(vars.mlx, vars.win, vars.img->img, 0, 0);
+	create_hook(&vars);
+	clear_var(&vars, true);
 	return (0);
 }
