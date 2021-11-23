@@ -1,6 +1,6 @@
 NAME	=	cub3d
-PARSER	=	$(addprefix parser/, )
-SRCS	=	main.c parser.c read_params.c utils.c geometry.c hook.c  util1.c util2.c util5.c
+PARSER	=	$(addprefix parser/, parser.c read_params.c read_map.c parse_map_line.c parser_utils.c)
+SRCS	=	${PARSER} main.c utils.c geometry.c hook.c init_vars.c util2.c util5.c
 OBJS		=	$(SRCS:.c=.o)
 FLAGS		=	-Wall -Wextra -Werror -g
 LIBFTMAKE 	=	$(MAKE) -C libft/

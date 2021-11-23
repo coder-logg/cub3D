@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:06:37 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/22 12:13:51 by tphlogis         ###   ########.fr       */
+/*   Updated: 2021/11/22 13:00:44 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ void	display_put(t_vars *vars)
 			if (!p.color)
 			{
 				if (p.b < vars->gorizont)
-p.color = vars->ceilling_color;
+					p.color = vars->color_floor;
 				else
-p.color = vars->floor_color;
+					p.color = vars->color_ceiling;
 			}
 			geom_pixel_put(vars->img, p);
 			p.a++;
@@ -69,7 +69,7 @@ p.color = vars->floor_color;
 	}
 }
 
-void	create_side(t_vars *vars, t_pozition2d *map, t_pozition2d step
+void	create_side(t_vars *vars, t_pos2d *map, t_pos2d step
 					, int	*side)
 {
 	int	hit;

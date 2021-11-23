@@ -24,7 +24,7 @@ void	clear_var(t_vars *vars, t_bool del_img)
 		free(vars->buff[i++]);
 	free(vars->buff);
 	i = 0;
-	while (i < vars->mapp_size.y)
+	while (i < vars->map_size.y)
 		free(vars->world_map[i++]);
 	free(vars->world_map);
 	if (del_img)
@@ -36,7 +36,6 @@ void	clear_var(t_vars *vars, t_bool del_img)
 	if (del_img)
 		free(vars->win);
 	free(vars->mlx);
-//	free(vars);
 }
 
 int	main(int argc, char **argv)
@@ -50,8 +49,7 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	parser(&vars, argv[1]);
-	init_vars(&vars, argv[1]);
-	//	createTextyres(&vars);
+	init_vars(&vars);
 	main_grafic(&vars);
 	mlx_put_image_to_window(vars.mlx, vars.win, vars.img->img, 0, 0);
 	create_hook(&vars);

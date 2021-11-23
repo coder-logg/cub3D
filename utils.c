@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 03:47:12 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/22 12:13:51 by tphlogis         ###   ########.fr       */
+/*   Updated: 2021/11/23 02:45:39 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -29,8 +29,7 @@ void	*chmllc(void *ptr)
 {
 	if (ptr == NULL)
 	{
-		ft_putstr_fd("malloc error\n", 2);
-		exit(1);
+		error("malloc error\n");
 	}
 	return (ptr);
 }
@@ -41,4 +40,23 @@ void	error(char *msg)
 	if (msg)
 		ft_putendl_fd(msg, 2);
 	exit(1);
+}
+
+void	init_point(t_point *point, double x, double y)
+{
+	ft_bzero(point, sizeof(*point));
+	point->x = x;
+	point->y = y;
+}
+
+int	arr_len(int **arr)
+{
+	int	i;
+
+	i = 0;
+	if (!arr)
+		return (0);
+	while (arr[i] != NULL)
+		i++;
+	return (i);
 }

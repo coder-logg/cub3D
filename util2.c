@@ -6,19 +6,19 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 10:11:13 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/21 11:27:52 by cshanda          ###   ########.fr       */
+/*   Updated: 2021/11/23 02:49:47 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
 
-void	create_y_1(t_vars *vars, t_param_x_a_r_s x, t_pozition2d draw
+void	create_y_1(t_vars *vars, t_param_x_a_r_s x, t_pos2d draw
 					, t_point l_w_x)
 {
-	t_pozition2d	tex;
-	double			step;
-	double			tex_pos;
-	t_uint32		color;
-	int				y;
+	t_pos2d		tex;
+	double		step;
+	double		tex_pos;
+	t_uint32	color;
+	int			y;
 
 	tex.x = (int)(l_w_x.y * (double)(vars->tex_width));
 	if (x.side == 0 && x.ray_dir.x > 0)
@@ -41,9 +41,9 @@ void	create_y_1(t_vars *vars, t_param_x_a_r_s x, t_pozition2d draw
 
 void	create_y(t_vars *vars, t_point pos, t_param_x_a_r_s x)
 {
-	double			perp_wall_dist;
-	t_point			line_height_wall_x;
-	t_pozition2d	draw;
+	double	perp_wall_dist;
+	t_point	line_height_wall_x;
+	t_pos2d	draw;
 
 	if (x.side == 0)
 		perp_wall_dist = (vars->dist.side.x - vars->dist.delta.x);
@@ -64,12 +64,11 @@ void	create_y(t_vars *vars, t_point pos, t_param_x_a_r_s x)
 	create_y_1(vars, x, draw, line_height_wall_x);
 }
 
-t_pozition2d	write_dist_side(t_vars *vars, t_pozition2d map, t_point pos
-						, t_point ray_dir)
+t_pos2d	write_dist_side(t_vars *vars, t_pos2d map, t_point pos, t_point ray_dr)
 {
-	t_pozition2d	step;
+	t_pos2d	step;
 
-	if (ray_dir.x < 0)
+	if (ray_dr.x < 0)
 	{
 		step.x = 0;
 		vars->dist.side.x = (pos.x - map.x) * vars->dist.delta.x;
@@ -79,7 +78,7 @@ t_pozition2d	write_dist_side(t_vars *vars, t_pozition2d map, t_point pos
 		step.x = 1;
 		vars->dist.side.x = (map.x + 1.0 - pos.x) * vars->dist.delta.x;
 	}
-	if (ray_dir.y < 0)
+	if (ray_dr.y < 0)
 	{
 		step.y = 0;
 		vars->dist.side.y = (pos.y - map.y) * vars->dist.delta.y;

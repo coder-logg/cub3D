@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 04:16:26 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/22 12:13:51 by tphlogis         ###   ########.fr       */
+/*   Updated: 2021/11/23 01:16:20 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -31,20 +31,20 @@ int	geom_pixel_get(t_data *data, int x, int y)
 
 t_uint32	*geom_textyre_get(t_vars *vars, char *relative_path)
 {
-	t_data			*img_t;
-	t_pozition2d	is;
-	t_uint32		*img;
-	t_pozition2d	p;
+	t_data		*img_t;
+	t_uint32	*img;
+	t_pos2d		p;
 
 	img_t = malloc(sizeof(t_data));
-	img_t->img = mlx_xpm_file_to_image(vars->mlx, relative_path, &is.x, &is.y);
+	img_t->img = mlx_xpm_file_to_image(vars->mlx, relative_path,
+			&vars->tex_width, &vars->tex_height);
 	if (!img_t->img)
-		ft_assert("Err: not get texture");
+		error("Err: not get texture");
 	img_t->addr = mlx_get_data_addr(img_t->img, &img_t->bits_per_pixel \
 	, &img_t->line_length, &img_t->endian);
-	img = malloc(is.x * is.y * sizeof(t_uint32));
+	img = malloc(vars->tex_height * vars->tex_width * sizeof(t_uint32));
 	if (!img)
-		ft_assert("malloc eror");
+		error("malloc eror");
 	p.x = -1;
 	while (++p.x < vars->tex_width)
 	{
