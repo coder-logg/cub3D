@@ -6,7 +6,7 @@
 /*   By: tphlogis <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 01:28:57 by tphlogis          #+#    #+#             */
-/*   Updated: 2021/11/23 02:28:00 by                  ###   ########.fr       */
+/*   Updated: 2021/11/23 16:11:13 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,16 @@
 // o_c.x = 1 если не первий столбец o_c.y = 1 если не последний столбец
 t_bool	check_around(int **map, t_point map_size, int ln, int col)
 {
-	t_pos2d	ol;
-	t_pos2d	o_c;
-
-	ft_bzero(&ol, sizeof(ol));
-	ft_bzero(&o_c, sizeof(o_c));
-	if (ln > 0)
-		ol.x = 1;
-	if (ln < map_size.y - 1)
-		ol.y = 1;
-	if (col > 0)
-		o_c.x = 1;
-	if (col < map_size.x - 1)
-		o_c.y = 1;
-	if ((map[ln][col] == 0
-		&& ((map[ln - ol.x][col] == 0 || map[ln - ol.x][col] == 1)
-		&& (map[ln + ol.y][col] == 0 || map[ln + ol.y][col] == 1)
-		&& (map[ln][col - o_c.x] == 0 || map[ln][col - o_c.x] == 1)
-		&& (map[ln][col + o_c.y] == 0 || map[ln][col + o_c.y] == 1)
-	&& (map[ln - ol.x][col - o_c.x] == 0 || map[ln - ol.x][col - o_c.x] == 1)
-	&& (map[ln + ol.y][col + o_c.y] == 0 || map[ln + ol.y][col + o_c.y] == 1)
-	&& (map[ln + ol.y][col - o_c.x] == 0 || map[ln + ol.y][col - o_c.x] == 1)
-	&& (map[ln - ol.x][col + o_c.y] == 0 || map[ln - ol.x][col + o_c.y] == 1)))
+	if ((map[ln][col] == 0 && ln > 0 && ln < map_size.y - 1
+		&& col > 0 && col < map_size.x - 1
+		&& ((map[ln - 1][col] == 0 || map[ln - 1][col] == 1)
+		&& (map[ln + 1][col] == 0 || map[ln + 1][col] == 1)
+		&& (map[ln][col - 1] == 0 || map[ln][col - 1] == 1)
+		&& (map[ln][col + 1] == 0 || map[ln][col + 1] == 1)
+	&& (map[ln - 1][col - 1] == 0 || map[ln - 1][col - 1] == 1)
+	&& (map[ln + 1][col + 1] == 0 || map[ln + 1][col + 1] == 1)
+	&& (map[ln + 1][col - 1] == 0 || map[ln + 1][col - 1] == 1)
+	&& (map[ln - 1][col + 1] == 0 || map[ln - 1][col + 1] == 1)))
 	|| map[ln][col] == 1 || map[ln][col] == -1)
 		return (true);
 	return (false);
