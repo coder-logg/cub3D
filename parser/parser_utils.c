@@ -39,6 +39,16 @@ void	invalid_map(char *str, int i, int j)
 	error(chmllc(ft_strjoin(str, tmp)));
 }
 
+void	invalid_value(char *key, char *msg)
+{
+	key = chmllc(ft_strjoin("Invalid value for identifier: ", key));
+	ft_putendl_fd(key, 2);
+	if (msg)
+		ft_putendl_fd(msg, 2);
+	free(key);
+	exit(1);
+}
+
 int	**intarr_add(int **arr, size_t arrlen, int *new)
 {
 	int	**new_arr;

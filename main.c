@@ -48,8 +48,8 @@ int	main(int argc, char **argv)
 		ft_putendl_fd("usage: ./cub3d [path to input file]", 1);
 		return (0);
 	}
-	parser(&vars, argv[1]);
 	init_vars(&vars);
+	parser(&vars, argv[1]);
 	main_grafic(&vars);
 	mlx_put_image_to_window(vars.mlx, vars.win, vars.img->img, 0, 0);
 	create_hook(&vars);
