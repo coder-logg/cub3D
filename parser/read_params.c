@@ -6,7 +6,7 @@
 /*   By: tphlogis <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 02:55:25 by tphlogis          #+#    #+#             */
-/*   Updated: 2021/11/23 14:53:02 by                  ###   ########.fr       */
+/*   Updated: 2021/11/24 19:27:36 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ int	check_key(char *key)
 
 	res = -1;
 	if (!ft_strcmp(key, "NO"))
-		res = NO;
-	else if (!ft_strcmp(key, "SO"))
-		res = SO;
-	else if (!ft_strcmp(key, "WE"))
 		res = WE;
-	else if (!ft_strcmp(key, "EA"))
+	else if (!ft_strcmp(key, "SO"))
 		res = EA;
+	else if (!ft_strcmp(key, "WE"))
+		res = SO;
+	else if (!ft_strcmp(key, "EA"))
+		res = NO;
 	else if (!ft_strcmp(key, "F"))
 		res = F;
 	else if (!ft_strcmp(key, "C"))

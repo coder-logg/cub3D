@@ -6,7 +6,7 @@
 /*   By: tphlogis <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 02:53:04 by tphlogis          #+#    #+#             */
-/*   Updated: 2021/11/24 14:02:25 by                  ###   ########.fr       */
+/*   Updated: 2021/11/24 20:36:49 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,23 @@ static void	set_pos_params(t_vars *vars, char c, int i, int j)
 		j + get_offset(vars, i, j).y);
 	if (c == 'N')
 	{
-		init_point(&vars->plane, 0, 0.66);
-		init_point(&vars->dir, -1, 0);
+		init_point(&vars->plane, 0.659544, 0.024525);
+		init_point(&vars->dir, -0.037158, 0.999309);
 	}
 	else if (c == 'S')
-	{
-		init_point(&vars->plane, 0.038527, -0.658875);
-		init_point(&vars->dir, 0.998295, 0.058374);
-	}
-	else if (c == 'W')
 	{
 		init_point(&vars->plane, -0.659994, 0.002921);
 		init_point(&vars->dir, -0.004426, -0.999990);
 	}
+	else if (c == 'W')
+	{
+		init_point(&vars->plane, 0.038527, -0.658875);
+		init_point(&vars->dir, 0.998295, 0.058374);
+	}
 	else if (c == 'E')
 	{
-		init_point(&vars->plane, 0.659544, 0.024525);
-		init_point(&vars->dir, -0.037158, 0.999309);
+		init_point(&vars->plane, 0, 0.66);
+		init_point(&vars->dir, -1, 0);
 	}
 }
 

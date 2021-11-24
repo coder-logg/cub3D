@@ -42,11 +42,12 @@ void	invalid_map(char *str, int i, int j)
 void	invalid_value(char *key, char *msg)
 {
 	key = chmllc(ft_strjoin("Invalid value for identifier: ", key));
-	ft_putendl_fd(key, 2);
 	if (msg)
-		ft_putendl_fd(msg, 2);
-	free(key);
-	exit(1);
+	{
+		set_free((void **)&key, ft_strjoin(key, "\n"));
+		set_free((void **)&key, ft_strjoin(key, msg));
+	}
+	error(key);
 }
 
 int	**intarr_add(int **arr, size_t arrlen, int *new)

@@ -17,9 +17,9 @@ static int	find_next_number(const char *val)
 	int		i;
 	t_bool	s;
 
-	i = 0;
+	i = -1;
 	s = false;
-	while (val[i])
+	while (val[++i])
 	{
 		if (val[i] == ' ' || val[i] == '\t')
 			continue ;
@@ -27,7 +27,6 @@ static int	find_next_number(const char *val)
 			s = true;
 		else
 			break ;
-		i++;
 	}
 	if (ft_isdigit(val[i]) || !val[i])
 		return (i);
