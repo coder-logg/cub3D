@@ -6,7 +6,7 @@
 /*   By: tphlogis <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 02:53:04 by tphlogis          #+#    #+#             */
-/*   Updated: 2021/11/23 02:53:27 by                  ###   ########.fr       */
+/*   Updated: 2021/11/24 14:02:25 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ static t_point	get_offset(const t_vars *vars, int i, int j)
 	if (i > 0 && j > 0)
 	{
 		if (vars->world_map[j][i - 1] == 1)
-			offset.x = 0.01;
+			offset.x = 0.5;
 		if (vars->world_map[j - 1][i] == 1)
-			offset.y = 0.01;
+			offset.y = 0.5;
 	}
 	return (offset);
 }
@@ -69,7 +69,7 @@ static int	**extend_map(int **arr, int prev_len, int new_len)
 	while (++i < arr_length)
 	{
 		new_arr[i] = chmllc(ft_calloc(new_len, sizeof(int)));
-		ft_memcpy(new_arr[i], arr[i], prev_len);
+		ft_memcpy(new_arr[i], arr[i], prev_len * sizeof(int));
 		j = prev_len;
 		while (j < new_len)
 			new_arr[i][j++] = -1;
@@ -89,7 +89,10 @@ static int	extend_map_to_rect(t_vars *vars, int j, char **line)
 	if (j == 0)
 		vars->map_size.x = l_len;
 	if (l_len > vars->map_size.x)
+	{
 		vars->world_map = extend_map(vars->world_map, vars->map_size.x, l_len);
+		vars->map_size.x = l_len;
+	}
 	else if (l_len < vars->map_size.x)
 	{
 		tmp = chmllc(chrdup(' ', vars->map_size.x - l_len));
@@ -109,7 +112,7 @@ void	parse_map_line(t_vars *vars, char *line)
 	i = -1;
 	line_len = extend_map_to_rect(vars, j, &line);
 	vars->world_map = intarr_add(vars->world_map, j,
-			chmllc(ft_calloc(ft_strlen(line), sizeof(int))));
+				chmllc(ft_calloc(line_len, sizeof(int))));
 	while (++i < line_len)
 	{
 		if (!ft_strchr(" SWNE01", line[i]))

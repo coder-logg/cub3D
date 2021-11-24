@@ -6,7 +6,7 @@
 /*   By: tphlogis <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 02:28:53 by tphlogis          #+#    #+#             */
-/*   Updated: 2021/11/23 02:31:46 by                  ###   ########.fr       */
+/*   Updated: 2021/11/24 13:27:12 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	read_map(t_vars *vars, int fd)
 	vars->pozition.y = -1;
 	ft_bzero(&vars->map_size, sizeof(vars->map_size));
 	read_first_map_line(vars, fd, &line);
+//	print_vars(vars);
 	while (gnl_ret)
 	{
 		gnl_ret = get_next_line(fd, &line);
@@ -59,6 +60,7 @@ void	read_map(t_vars *vars, int fd)
 			break ;
 		}
 		parse_map_line(vars, line);
+//		print_vars(vars);
 		free(tmp);
 	}
 }

@@ -23,7 +23,7 @@ FORCE:
 clean:
 	rm -f $(OBJS)
 	$(LIBFTMAKE) clean
-	$(MAKE) minilibx/ clean
+	$(MAKE) -C minilibx/ clean
 
 fclean:
 	rm -f $(NAME) $(OBJS)

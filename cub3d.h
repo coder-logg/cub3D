@@ -151,5 +151,6 @@ int			**intarr_add(int **arr, size_t arrlen, int *new);
 void		parse_map_line(t_vars *vars, char *line);
 void		invalid_value(char *key, char *msg);
 int			get_color(char *val, char *key);
+void print_vars(t_vars *vars);
 
 #endif
