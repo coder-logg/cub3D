@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 03:43:48 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/23 01:27:30 by                  ###   ########.fr       */
+/*   Updated: 2021/11/24 23:34:14 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -47,7 +47,7 @@ void	go_(t_vars *v, int keycode)
 	if (keycode == KEY_D || keycode == KEY_A)
 		si = true;
 	i = (int)(v->pozition.y);
-	j = (int)(v->pozition.x + cf * (v->dir.x * (!si) + si * sin(v->plane.x))
+	j= (int)(v->pozition.x + cf * (v->dir.x * (!si) + si * sin(v->plane.x))
 			* v->move_speed);
 	if (v->world_map[i][j] == false)
 		v->pozition.x += 0.1 * (v->dir.x * (!si) + si * sin(v->plane.x)) * cf;

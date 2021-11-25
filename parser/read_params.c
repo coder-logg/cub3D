@@ -6,7 +6,7 @@
 /*   By: tphlogis <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 02:55:25 by tphlogis          #+#    #+#             */
-/*   Updated: 2021/11/24 19:27:36 by                  ###   ########.fr       */
+/*   Updated: 2021/11/25 18:54:24 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ void	set_param_val(t_vars *cub, t_inf_type inf_id, char *val, char *key)
 {
 	if (inf_id >= NO && inf_id <= EA && check_path(val, key))
 	{
-		if (cub->texs[inf_id - NO])
-			invalid_value(key, "Multiple identifier definition");
+	////	if (cub->texs[inf_id - NO].texs)
+	////		invalid_value(key, "Multiple identifier definition");
 		cub->texs[inf_id - NO] = geom_textyre_get(cub, val);
 	}
 	else if (inf_id == F && cub->color_floor == -1)

@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 21:28:21 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/22 12:46:14 by                  ###   ########.fr       */
+/*   Updated: 2021/11/25 18:36:24 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	clear_var(t_vars *vars, t_bool del_img)
 
 	i = 0;
 	while (i < AMOUNT_TEXTURES)
-		free(vars->texs[i++]);
+		free(vars->texs[i++].texs);
 	i = 0;
 	while (i < vars->display.y)
 		free(vars->buff[i++]);
@@ -42,6 +42,7 @@ int	main(int argc, char **argv)
 {
 	t_vars			vars;
 
+
 	(void)argc;
 	if (argc != 2)
 	{
@@ -50,6 +51,8 @@ int	main(int argc, char **argv)
 	}
 	init_vars(&vars);
 	parser(&vars, argv[1]);
+	vars.world_map = transporent(vars.world_map,vars.map_size.y);
+	vars.pozition.y = vars.map_size.y - vars.pozition.y;
 	main_grafic(&vars);
 	mlx_put_image_to_window(vars.mlx, vars.win, vars.img->img, 0, 0);
 	create_hook(&vars);

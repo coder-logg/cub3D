@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 04:16:26 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/23 01:16:20 by                  ###   ########.fr       */
+/*   Updated: 2021/11/25 14:12:23 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -29,30 +29,33 @@ int	geom_pixel_get(t_data *data, int x, int y)
 	return (*(unsigned int *)dst);
 }
 
-t_uint32	*geom_textyre_get(t_vars *vars, char *relative_path)
+t_text 	geom_textyre_get(t_vars *vars, char *relative_path)
 {
 	t_data		*img_t;
 	t_uint32	*img;
 	t_pos2d		p;
+	t_text		text;
 
+	//text = malloc(sizeof(t_text));
 	img_t = malloc(sizeof(t_data));
 	img_t->img = mlx_xpm_file_to_image(vars->mlx, relative_path,
-			&vars->tex_width, &vars->tex_height);
+									   &text.size.x, &text.size.y);
 	if (!img_t->img)
 		error("Err: not get texture");
 	img_t->addr = mlx_get_data_addr(img_t->img, &img_t->bits_per_pixel \
 	, &img_t->line_length, &img_t->endian);
-	img = malloc(vars->tex_height * vars->tex_width * sizeof(t_uint32));
+	img = malloc(text.size.y * text.size.x * sizeof(t_uint32));
 	if (!img)
 		error("malloc eror");
 	p.x = -1;
-	while (++p.x < vars->tex_width)
+	while (++p.x < text.size.x)
 	{
 		p.y = -1;
-		while (++p.y < vars->tex_height)
-			img[vars->tex_width * p.y + p.x] = geom_pixel_get(img_t, p.x, p.y);
+		while (++p.y < text.size.y)
+			img[text.size.x * p.y + p.x] = geom_pixel_get(img_t, p.x, p.y);
 	}
 	free(img_t->img);
 	free(img_t);
-	return (img);
+	text.texs =img;
+	return (text);
 }

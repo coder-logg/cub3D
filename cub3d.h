@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/24 21:37:12 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/23 15:03:38 by                  ###   ########.fr       */
+/*   Updated: 2021/11/25 14:38:06 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,12 @@ typedef struct s_param_x_a_r_s
 	t_pos2d	x_a;
 }				t_param_x_a_r_s;
 
+typedef struct s_text
+{
+	long		*texs;
+	t_pos2d		size;
+}				t_text;
+
 typedef struct s_vars
 {
 	void		*mlx;
@@ -102,13 +108,11 @@ typedef struct s_vars
 	int			color_floor;
 	int			color_ceiling;
 	t_uint32	**buff;
-	long		*texs[AMOUNT_TEXTURES];
+	t_text		texs[4];
 	t_pos2d		display;
 	t_point		pozition;
 	t_point		dir;
 	t_point		plane;
-	int			tex_width;
-	int			tex_height;
 	double		gorizont;
 	double		move_speed;
 	double		rot_speed;
@@ -124,7 +128,7 @@ t_vars		*init_vars(t_vars *vars);
 void		create_hook(t_vars *vars);
 int			geom_pixel_get(t_data *data, int x, int y);
 void		main_grafic(t_vars *vars);
-t_uint32	*geom_textyre_get(t_vars *vars, char *relative_path);
+t_text		geom_textyre_get(t_vars *vars, char *relative_path);
 void		set_free(void **var, void *new);
 void		*chmllc(void *ptr);
 int			parser(t_vars *cub, char *path);
@@ -151,6 +155,6 @@ int			**intarr_add(int **arr, size_t arrlen, int *new);
 void		parse_map_line(t_vars *vars, char *line);
 void		invalid_value(char *key, char *msg);
 int			get_color(char *val, char *key);
-void print_vars(t_vars *vars);
-
+void		print_vars(t_vars *vars);
+int			**transporent(int **mass, int i_max);
 #endif

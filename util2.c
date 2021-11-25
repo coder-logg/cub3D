@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 10:11:13 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/23 02:49:47 by                  ###   ########.fr       */
+/*   Updated: 2021/11/25 18:45:15 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -20,19 +20,19 @@ void	create_y_1(t_vars *vars, t_param_x_a_r_s x, t_pos2d draw
 	t_uint32	color;
 	int			y;
 
-	tex.x = (int)(l_w_x.y * (double)(vars->tex_width));
+	tex.x = (int)(l_w_x.y * (double)(vars->texs[x.x_a.y].size.x));
 	if (x.side == 0 && x.ray_dir.x > 0)
-		tex.x = vars->tex_width - tex.x - 1;
+		tex.x = vars->texs[x.x_a.y].size.x - tex.x - 1;
 	if (x.side == 1 && x.ray_dir.y < 0)
-		tex.x = vars->tex_width - tex.x - 1;
-	step = 1.0 * vars->tex_height / l_w_x.x;
+		tex.x = vars->texs[x.x_a.y].size.x - tex.x - 1;
+	step = 1.0 * vars->texs[x.x_a.y].size.y / l_w_x.x;
 	tex_pos = (draw.x - PITCH - vars->display.y / 2 + l_w_x.x / 2) * step;
 	y = draw.x - 1;
-	while (++y < draw.y)
+	while (++y <= draw.y)
 	{
-		tex.y = (int)tex_pos & (vars->tex_height - 1);
+		tex.y = (int)tex_pos & (vars->texs[x.x_a.y].size.y- 1);
 		tex_pos += step;
-		color = vars->texs[x.x_a.y][vars->tex_height * tex.y + tex.x];
+		color = vars->texs[x.x_a.y].texs[vars->texs[x.x_a.y].size.x * tex.y + tex.x];
 		if (!color)
 			color = 1 ;
 		vars->buff[y][x.x_a.x] = color;
