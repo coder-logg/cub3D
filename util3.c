@@ -26,6 +26,6 @@ int	**transporent(int **mass, int i_max)
 		mas[i_max-i-1] = mass[i];
 		i--;
 	}
-
+	free(mass);
 	return (mas);
 }

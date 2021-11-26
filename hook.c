@@ -6,9 +6,10 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 03:43:48 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/24 23:34:14 by cshanda          ###   ########.fr       */
+/*   Updated: 2021/11/25 20:50:24 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include <printf.h>
 #include "cub3d.h"
 
 void	rotate(t_vars *v, int keycode)

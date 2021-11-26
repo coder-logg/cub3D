@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 02:40:35 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/25 18:55:41 by cshanda          ###   ########.fr       */
+/*   Updated: 2021/11/25 20:23:32 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -29,6 +29,7 @@ t_vars	*init_vars(t_vars *vars)
 
 	d_size.x = 800;
 	d_size.y = 600;
+	vars->k=-1;
 	vars->color_floor = -1;
 	vars->color_ceiling = -1;
 	vars->buff = chmllc(malloc(sizeof(t_uint32 *) * d_size.y));

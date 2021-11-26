@@ -6,9 +6,10 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 10:11:13 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/25 18:45:15 by cshanda          ###   ########.fr       */
+/*   Updated: 2021/11/26 09:44:33 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include <printf.h>
 #include "cub3d.h"
 
 void	create_y_1(t_vars *vars, t_param_x_a_r_s x, t_pos2d draw
@@ -30,9 +31,12 @@ void	create_y_1(t_vars *vars, t_param_x_a_r_s x, t_pos2d draw
 	y = draw.x - 1;
 	while (++y <= draw.y)
 	{
-		tex.y = (int)tex_pos & (vars->texs[x.x_a.y].size.y- 1);
+		tex.y = (int)tex_pos;// & (vars->texs[x.x_a.y].size.y+vars->k);
 		tex_pos += step;
-		color = vars->texs[x.x_a.y].texs[vars->texs[x.x_a.y].size.x * tex.y + tex.x];
+		if (vars->texs[x.x_a.y].size.x * tex.y + tex.x >=0 &&
+			vars->texs[x.x_a.y].size.x * tex.y + tex.x
+			        < vars->texs[x.x_a.y].size.x*vars->texs[x.x_a.y].size.y)
+			color = vars->texs[x.x_a.y].texs[vars->texs[x.x_a.y].size.x * tex.y + tex.x];
 		if (!color)
 			color = 1 ;
 		vars->buff[y][x.x_a.x] = color;

@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/24 21:37:12 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/25 14:38:06 by cshanda          ###   ########.fr       */
+/*   Updated: 2021/11/25 18:36:24 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ typedef struct s_vars
 	double		rot_speed;
 	t_point		map_size;
 	t_dist		dist;
+	int			k;
 }					t_vars;
 
 void		geom_pixel_put(t_data *data, t_point2d point);
