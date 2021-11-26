@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 03:43:48 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/25 20:50:24 by cshanda          ###   ########.fr       */
+/*   Updated: 2021/11/26 12:26:26 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <printf.h>
@@ -48,7 +48,7 @@ void	go_(t_vars *v, int keycode)
 	if (keycode == KEY_D || keycode == KEY_A)
 		si = true;
 	i = (int)(v->pozition.y);
-	j= (int)(v->pozition.x + cf * (v->dir.x * (!si) + si * sin(v->plane.x))
+	j = (int)(v->pozition.x + cf * (v->dir.x * (!si) + si * sin(v->plane.x))
 			* v->move_speed);
 	if (v->world_map[i][j] == false)
 		v->pozition.x += 0.1 * (v->dir.x * (!si) + si * sin(v->plane.x)) * cf;
@@ -59,24 +59,22 @@ void	go_(t_vars *v, int keycode)
 		v->pozition.y += 0.1 * (v->dir.y * (!si) + si * sin(v->plane.y)) * cf;
 }
 
-int	key_hook(int k, t_vars *vars)
+int	key_hook(t_vars *data)
 {
-	if (k == KEY_ESK)
-		close_prog(k, vars);
-	if (k == KEY_LEFT || k == KEY_RIGHT)
-		rotate(vars, k);
-	if (k == KEY_UP || k == KEY_DOWAN || k == KEY_W || k == KEY_S
-		|| k == KEY_D || k == KEY_A)
-		go_(vars, k);
-	free(vars->img);
-	vars->img = malloc(sizeof(t_data));
-	vars->img->img = mlx_new_image(vars->mlx, vars->display.x,
-			vars->display.y);
-	vars->img->addr = mlx_get_data_addr(vars->img->img,
-			&vars->img->bits_per_pixel, &vars->img->line_length,
-			&vars->img->endian);
-	main_grafic(vars);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img, 0, 0);
+	if (data->key.right_key)
+		rotate(data, KEY_RIGHT);
+	if (data->key.left_key)
+		rotate(data, KEY_LEFT);
+	if (data->key.up_key)
+		go_(data, KEY_W);
+	if (data->key.down_key)
+		go_(data, KEY_S);
+	if (data->key.strafeleft_key)
+		go_(data, KEY_A);
+	if (data->key.straferight_key)
+		go_(data, KEY_D);
+	main_grafic(data);
+	mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);
 	return (0);
 }
 
@@ -92,12 +90,6 @@ int	mous_hook(int button, int x, int y, t_vars *vars)
 	else
 		keycode = KEY_RIGHT;
 	rotate(vars, keycode);
-	free(vars->img);
-	vars->img = malloc(sizeof(t_data));
-	vars->img->img = mlx_new_image(vars->mlx, vars->display.x, vars->display.y);
-	vars->img->addr = mlx_get_data_addr(vars->img->img,
-			&vars->img->bits_per_pixel,
-			&vars->img->line_length, &vars->img->endian);
 	main_grafic(vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img, 0, 0);
 	return (0);

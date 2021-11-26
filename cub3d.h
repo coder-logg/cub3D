@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/24 21:37:12 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/25 18:36:24 by cshanda          ###   ########.fr       */
+/*   Updated: 2021/11/26 12:52:56 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@
 # define KEY_A				0
 # define KEY_ESK			53
 # define AMOUNT_TEXTURES	4
-# define MAP_WIDTH			24 /// todo удалить
-# define MAP_HEIGHT			24 /// todo удалить
 # define PITCH				100
 
 typedef long		t_uint32;
@@ -99,6 +97,16 @@ typedef struct s_text
 	t_pos2d		size;
 }				t_text;
 
+typedef struct s_key
+{
+	t_bool	straferight_key;
+	t_bool	strafeleft_key;
+	t_bool	up_key;
+	t_bool	down_key;
+	t_bool	left_key;
+	t_bool	right_key;
+}				t_key;
+
 typedef struct s_vars
 {
 	void		*mlx;
@@ -118,18 +126,18 @@ typedef struct s_vars
 	double		rot_speed;
 	t_point		map_size;
 	t_dist		dist;
-	int			k;
+	t_key		key;
 }					t_vars;
 
 void		geom_pixel_put(t_data *data, t_point2d point);
 int			close_prog(int keycode, t_vars *vars);
-int			key_hook(int k, t_vars *vars);
+int			key_hook(t_vars *vars);
 int			mous_hook(int button, int x, int y, t_vars *vars);
 t_vars		*init_vars(t_vars *vars);
 void		create_hook(t_vars *vars);
 int			geom_pixel_get(t_data *data, int x, int y);
 void		main_grafic(t_vars *vars);
-t_text		geom_textyre_get(t_vars *vars, char *relative_path);
+t_text		geom_textyre_get(t_vars *vars, char *rel_p);
 void		set_free(void **var, void *new);
 void		*chmllc(void *ptr);
 int			parser(t_vars *cub, char *path);
@@ -158,4 +166,6 @@ void		invalid_value(char *key, char *msg);
 int			get_color(char *val, char *key);
 void		print_vars(t_vars *vars);
 int			**transporent(int **mass, int i_max);
+int			hook_keypress(int keycode, t_vars *data);
+int			hook_keyrel(int keycode, t_vars *data);
 #endif

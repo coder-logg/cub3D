@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:06:37 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/25 13:36:44 by cshanda          ###   ########.fr       */
+/*   Updated: 2021/11/26 12:07:44 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,14 @@ int	close_prog17(int keycode, t_vars *vars)
 void	create_hook(t_vars *vars)
 {
 	mlx_mouse_hook(vars->win, mous_hook, vars);
-	mlx_hook(vars->win, 2, 0, key_hook, vars);
+	mlx_hook(vars->win, 2, 1L << 0, hook_keypress, vars);
+	mlx_hook(vars->win, 3, 1L << 0, hook_keyrel, vars);
 	mlx_hook(vars->win, 17, 1 << 17, close_prog17, vars);
+	mlx_loop_hook(vars->mlx, &key_hook, vars);
+	vars->img->img = mlx_new_image(vars->mlx, vars->display.x, vars->display.y);
+	vars->img->addr = mlx_get_data_addr(vars->img->img \
+			, &vars->img->bits_per_pixel, &vars->img->line_length \
+			, &vars->img->endian);
 	mlx_loop(vars->mlx);
 }
 
@@ -33,11 +39,14 @@ void	clear_buff(t_vars *vars, t_param_gem *geom)
 	int	y;
 
 	y = -1;
-	while (++y < (int) vars->display.y)
+	if (vars->buff)
 	{
-		x = -1;
-		while (++x < (int)vars->display.x)
-			vars->buff[y][x] = 0;
+		while (++y < (int) vars->display.y)
+		{
+			x = -1;
+			while (++x < (int)vars->display.x)
+				vars->buff[y][x] = 0;
+		}
 	}
 	geom->dir = vars->dir;
 	geom->pos = vars->pozition;

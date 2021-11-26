@@ -6,40 +6,39 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 10:11:13 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/26 09:44:33 by cshanda          ###   ########.fr       */
+/*   Updated: 2021/11/26 12:38:28 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <printf.h>
 #include "cub3d.h"
 
-void	create_y_1(t_vars *vars, t_param_x_a_r_s x, t_pos2d draw
+void	create_y_1(t_vars *v, t_param_x_a_r_s x, t_pos2d draw
 					, t_point l_w_x)
 {
-	t_pos2d		tex;
+	t_pos2d		t;
 	double		step;
 	double		tex_pos;
 	t_uint32	color;
 	int			y;
 
-	tex.x = (int)(l_w_x.y * (double)(vars->texs[x.x_a.y].size.x));
+	t.x = (int)(l_w_x.y * (double)(v->texs[x.x_a.y].size.x));
 	if (x.side == 0 && x.ray_dir.x > 0)
-		tex.x = vars->texs[x.x_a.y].size.x - tex.x - 1;
+		t.x = v->texs[x.x_a.y].size.x - t.x - 1;
 	if (x.side == 1 && x.ray_dir.y < 0)
-		tex.x = vars->texs[x.x_a.y].size.x - tex.x - 1;
-	step = 1.0 * vars->texs[x.x_a.y].size.y / l_w_x.x;
-	tex_pos = (draw.x - PITCH - vars->display.y / 2 + l_w_x.x / 2) * step;
+		t.x = v->texs[x.x_a.y].size.x - t.x - 1;
+	step = 1.0 * v->texs[x.x_a.y].size.y / l_w_x.x;
+	tex_pos = (draw.x - PITCH - v->display.y / 2 + l_w_x.x / 2) * step;
 	y = draw.x - 1;
 	while (++y <= draw.y)
 	{
-		tex.y = (int)tex_pos;// & (vars->texs[x.x_a.y].size.y+vars->k);
+		t.y = (int)tex_pos;
 		tex_pos += step;
-		if (vars->texs[x.x_a.y].size.x * tex.y + tex.x >=0 &&
-			vars->texs[x.x_a.y].size.x * tex.y + tex.x
-			        < vars->texs[x.x_a.y].size.x*vars->texs[x.x_a.y].size.y)
-			color = vars->texs[x.x_a.y].texs[vars->texs[x.x_a.y].size.x * tex.y + tex.x];
+		if (v->texs[x.x_a.y].size.x * t.y + t.x >= 0 && v->texs[x.x_a.y].size.x \
+		* t.y + t.x < v->texs[x.x_a.y].size.x * v->texs[x.x_a.y].size.y)
+			color = v->texs[x.x_a.y].texs[v->texs[x.x_a.y].size.x * t.y + t.x];
 		if (!color)
 			color = 1 ;
-		vars->buff[y][x.x_a.x] = color;
+		v->buff[y][x.x_a.x] = color;
 	}
 }
 

@@ -48,7 +48,6 @@ void	read_map(t_vars *vars, int fd)
 	vars->pozition.y = -1;
 	ft_bzero(&vars->map_size, sizeof(vars->map_size));
 	read_first_map_line(vars, fd, &line);
-//	print_vars(vars);
 	while (gnl_ret)
 	{
 		gnl_ret = get_next_line(fd, &line);
@@ -60,7 +59,6 @@ void	read_map(t_vars *vars, int fd)
 			break ;
 		}
 		parse_map_line(vars, line);
-//		print_vars(vars);
 		free(tmp);
 	}
 }

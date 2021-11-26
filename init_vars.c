@@ -16,6 +16,8 @@ void	init_mlx_params(t_vars *vars, t_pos2d *d_size)
 	vars->mlx = mlx_init();
 	vars->win = mlx_new_window(vars->mlx, (*d_size).x, (*d_size).y, "Cube3D");
 	vars->img = malloc(sizeof(t_data));
+	if (!vars->img)
+		error("malloc err");
 	vars->img->img = mlx_new_image(vars->mlx, (*d_size).x, (*d_size).y);
 	vars->img->addr = mlx_get_data_addr(vars->img->img,
 			&(vars->img->bits_per_pixel), &(vars->img->line_length),
@@ -29,7 +31,6 @@ t_vars	*init_vars(t_vars *vars)
 
 	d_size.x = 800;
 	d_size.y = 600;
-	vars->k=-1;
 	vars->color_floor = -1;
 	vars->color_ceiling = -1;
 	vars->buff = chmllc(malloc(sizeof(t_uint32 *) * d_size.y));
