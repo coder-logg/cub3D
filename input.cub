@@ -1,7 +1,7 @@
-NO ./img/k1.xpm
+NO ./img/1.xpm
  SO  ./img/6.xpm
- WE ./img/k1.xpm
-  EA ./img/k1.xpm
+ WE ./img/eagle.xpm
+  EA ./img/redbrick.xpm
 
   F 220,100,0
   C 225,30,0

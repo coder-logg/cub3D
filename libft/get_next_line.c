@@ -79,7 +79,7 @@ int	get_next_line(int fd, char **line)
 	*line = NULL;
 	if (rr == 0)
 	{
-		*line = ft_memset(malloc(1), 0, 1);
+		*line = ft_calloc(1, sizeof(char));
 		return (0);
 	}
 	i = 0;

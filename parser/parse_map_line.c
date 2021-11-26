@@ -6,7 +6,7 @@
 /*   By: tphlogis <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 02:53:04 by tphlogis          #+#    #+#             */
-/*   Updated: 2021/11/24 20:36:49 by                  ###   ########.fr       */
+/*   Updated: 2021/11/26 23:47:47 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	parse_map_line(t_vars *vars, char *line)
 	i = -1;
 	line_len = extend_map_to_rect(vars, j, &line);
 	vars->world_map = intarr_add(vars->world_map, j,
-				chmllc(ft_calloc(line_len, sizeof(int))));
+			chmllc(ft_calloc(line_len, sizeof(int))));
 	while (++i < line_len)
 	{
 		if (!ft_strchr(" SWNE01", line[i]))

@@ -6,15 +6,12 @@
 /*   By: tphlogis <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 01:28:57 by tphlogis          #+#    #+#             */
-/*   Updated: 2021/11/24 13:51:13 by                  ###   ########.fr       */
+/*   Updated: 2021/11/26 23:58:27 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <printf.h>
 #include "../cub3d.h"
 
-// ol.x = 1 если не первая строка ol.y = 1 если не последняя строка
-// o_c.x = 1 если не первий столбец o_c.y = 1 если не последний столбец
 t_bool	check_around(int **map, t_point map_size, int ln, int col)
 {
 	if ((map[ln][col] == 0 && ln > 0 && ln < map_size.y - 1
@@ -53,31 +50,6 @@ void	check_map(int **map, t_point map_size)
 	}
 }
 
-void print_vars(t_vars *vars)
-{
-	int i = 0;
-	int j = 0;
-	printf("\n==========================================\n");
-	while (i < vars->map_size.y)
-	{
-		j = 0;
-		printf("[");
-		while (j < vars->map_size.x)
-		{
-			if (i == vars->pozition.y && j == vars->pozition.x)
-				printf("\x1b[35m");
-			printf("%2d", vars->world_map[i][j]);
-			printf("\x1b[0m");
-			j++;
-		}
-		printf("]\n");
-		i++;
-	}
-	printf("%d, map_size.x = %d, map_size.y = %d\n", arr_len(vars->world_map), (int)vars->map_size.x, (int)vars->map_size.y);
-	printf("%d, map_size.x = %d, map_size.y = %d\n", arr_len(vars->world_map), (int)vars->map_size.x, (int)vars->map_size.y);
-	printf("%.2f %.2f\n", vars->pozition.x,  vars->pozition.y);
-}
-
 int	parser(t_vars *vars, char *path)
 {
 	int		fd;
@@ -97,7 +69,6 @@ int	parser(t_vars *vars, char *path)
 	vars->mlx = mlx_init();
 	read_params(vars, fd);
 	read_map(vars, fd);
-//	print_vars(vars);
 	close(fd);
 	check_map(vars->world_map, vars->map_size);
 	if (vars->pozition.x == -1 || vars->pozition.y == -1)

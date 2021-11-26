@@ -33,7 +33,7 @@ int	get_line(int fd, char **dst)
 	while (gnl_ret)
 	{
 		gnl_ret = get_next_line(fd, &line);
-		if (!gnl_ret && !line)
+		if (!gnl_ret && !chmllc(line))
 			return (1);
 		set_free((void **)&line, chmllc(ft_strtrim(line, " \t")));
 		gnl_ret = 0;
@@ -91,8 +91,8 @@ void	set_param_val(t_vars *cub, t_inf_type inf_id, char *val, char *key)
 {
 	if (inf_id >= NO && inf_id <= EA && check_path(val, key))
 	{
-	////	if (cub->texs[inf_id - NO].texs)
-	////		invalid_value(key, "Multiple identifier definition");
+		if (cub->texs[inf_id - NO].texs)
+			invalid_value(key, "Multiple identifier definition");
 		cub->texs[inf_id - NO] = geom_textyre_get(cub, val);
 	}
 	else if (inf_id == F && cub->color_floor == -1)

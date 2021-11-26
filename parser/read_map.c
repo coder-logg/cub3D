@@ -24,6 +24,7 @@ static void	read_first_map_line(t_vars *vars, int fd, char **line)
 		gnl_ret = get_next_line(fd, line);
 		if (!gnl_ret)
 			error("Invalid file");
+		chmllc(line);
 		tmp = chmllc(ft_strtrim((*line), " \t"));
 		if (tmp[0])
 		{

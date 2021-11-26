@@ -33,6 +33,10 @@ t_vars	*init_vars(t_vars *vars)
 	d_size.y = 600;
 	vars->color_floor = -1;
 	vars->color_ceiling = -1;
+	vars->texs[0].texs = NULL;
+	vars->texs[1].texs = NULL;
+	vars->texs[2].texs = NULL;
+	vars->texs[3].texs = NULL;
 	vars->buff = chmllc(malloc(sizeof(t_uint32 *) * d_size.y));
 	i = -1;
 	while (++i < d_size.y)
