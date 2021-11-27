@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 03:43:48 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/27 12:27:25 by cshanda          ###   ########.fr       */
+/*   Updated: 2021/11/27 19:40:21 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <printf.h>
@@ -69,29 +69,37 @@ int	key_hook(t_vars *data)
 		go_(data, KEY_W);
 	if (data->key.down_key)
 		go_(data, KEY_S);
-	if (data->key.strafeleft_key)
+	if (data->key.str_l_key)
 		go_(data, KEY_A);
-	if (data->key.straferight_key)
+	if (data->key.str_r_key)
 		go_(data, KEY_D);
-	main_grafic(data);
-	mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);
+	if (data->key.right_key || data->key.left_key || data->key.up_key \
+		|| data->key.down_key || data->key.str_l_key || data->key.str_r_key)
+	{
+		main_grafic(data);
+		mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);
+		if (data->mouse)
+		{
+			data->key.right_key = false;
+			data->key.left_key = false;
+			data->mouse = false;
+		}
+	}
 	return (0);
 }
 
-int	mous_hook(int button, int x, int y, t_vars *vars)
+int	mous_hook(int x, int y, t_vars *vars)
 {
-	int	keycode;
-
-	(void) button;
-	(void) x;
 	(void) y;
-	if (button == 4)
-		keycode = KEY_LEFT;
+	vars->mouse = true;
+	if (x > vars->mous_x)
+		vars->key.right_key = true;
 	else
-		keycode = KEY_RIGHT;
-	rotate(vars, keycode);
-	main_grafic(vars);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img, 0, 0);
+	{
+		if (x < vars->mous_x)
+		vars->key.left_key = true;
+	}
+	vars->mous_x = x;
 	return (0);
 }
 

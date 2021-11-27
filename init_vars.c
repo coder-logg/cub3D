@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 02:40:35 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/27 11:02:59 by cshanda          ###   ########.fr       */
+/*   Updated: 2021/11/27 19:31:58 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
@@ -44,7 +44,8 @@ t_vars	*init_vars(t_vars *vars)
 	vars->display.x = d_size.x;
 	vars->display.y = d_size.y;
 	vars->move_speed = 0.2;
-	vars->rot_speed = 0.1;
+	vars->rot_speed = 0.03;
+	vars->mous_x = 10;
 	init_mlx_params(vars, &d_size);
 	return (vars);
 }
