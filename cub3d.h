@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/24 21:37:12 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/26 12:52:56 by cshanda          ###   ########.fr       */
+/*   Updated: 2021/11/27 12:18:17 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ typedef struct s_vars
 	t_point		pozition;
 	t_point		dir;
 	t_point		plane;
-	double		gorizont;
 	double		move_speed;
 	double		rot_speed;
 	t_point		map_size;

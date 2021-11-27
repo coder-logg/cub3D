@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:06:37 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/26 12:07:44 by cshanda          ###   ########.fr       */
+/*   Updated: 2021/11/27 11:01:47 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,25 +56,29 @@ void	clear_buff(t_vars *vars, t_param_gem *geom)
 void	display_put(t_vars *vars)
 {
 	t_point2d	p;
+	t_bool		h;
 
-	p.b = 0;
-	while (p.b < vars->display.y)
+	p.a = 0;
+	while (p.a < vars->display.x)
 	{
-		p.a = 0;
-		while (p.a < vars->display.x)
+		p.b = 0;
+		h = false;
+		while (p.b < vars->display.y)
 		{
 			p.color = vars->buff[p.b][p.a];
 			if (!p.color)
 			{
-				if (p.b < vars->gorizont)
+				if (!h)
 					p.color = vars->color_floor;
 				else
 					p.color = vars->color_ceiling;
 			}
+			else
+				h = true;
 			geom_pixel_put(vars->img, p);
-			p.a++;
+			p.b++;
 		}
-		p.b++;
+		p.a++;
 	}
 }
 
