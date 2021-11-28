@@ -55,9 +55,9 @@ void	display_put(t_vars *vars)
 			if (!p.color)
 			{
 				if (!h)
-					p.color = vars->color_floor;
-				else
 					p.color = vars->color_ceiling;
+				else
+					p.color = vars->color_floor;
 			}
 			else
 				h = true;

@@ -38,13 +38,15 @@ t_text	geom_textyre_get(t_vars *vars, char *rel_p)
 
 	img_t = malloc(sizeof(t_data));
 	if (!img_t)
-		error("malloc err1");
+		error("malloc error");
 	img_t->img = mlx_xpm_file_to_image(vars->mlx, rel_p, &t.size.x, &t.size.y);
+	if (img_t->img)
+		error("Load texture error");
 	img_t->addr = mlx_get_data_addr(img_t->img, &img_t->bits_per_pixel \
 	, &img_t->line_length, &img_t->endian);
 	img = malloc(t.size.y * t.size.x * sizeof(t_uint32));
 	if (!img)
-		error("malloc eror");
+		error("malloc error");
 	p.x = -1;
 	while (++p.x < t.size.x)
 	{

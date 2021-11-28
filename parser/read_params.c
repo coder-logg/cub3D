@@ -6,7 +6,7 @@
 /*   By: tphlogis <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 02:55:25 by tphlogis          #+#    #+#             */
-/*   Updated: 2021/11/25 18:54:24 by cshanda          ###   ########.fr       */
+/*   Updated: 2021/11/28 19:04:17 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	get_line(int fd, char **dst)
 	return (0);
 }
 
-int	check_key(char *key)
+int	check_key(char *key, t_vars *vars)
 {
 	int	res;
 
@@ -66,6 +66,10 @@ int	check_key(char *key)
 		res = C;
 	if (res == -1)
 		error(ft_strjoin("Unknown type identifier: ", key));
+	if ((res >= NO && res <= EA && vars->texs[res - NO].texs != NULL)
+			|| ((res == F && vars->color_floor != -1)
+			|| (res == C && vars->color_ceiling != -1)))
+		error(ft_strjoin("Multiple identifier definition: ", key));
 	return (res);
 }
 
@@ -119,7 +123,7 @@ int	read_params(t_vars *vars, int fd)
 		if (key == NULL)
 			error("Invalid file format");
 		key = chmllc(ft_substr(line, 0, key - line));
-		inf_type = check_key(key);
+		inf_type = check_key(key, vars);
 		val = chmllc(ft_substr(line + ft_strlen(key), 0,
 					ft_strlen(line) - ft_strlen(key)));
 		set_free((void **) &val, chmllc(ft_strtrim(val, " \t")));
