@@ -6,10 +6,17 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 11:13:38 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/28 13:53:11 by                  ###   ########.fr       */
+/*   Updated: 2021/11/28 14:16:15 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
+
+static void	clear_mouse(t_vars *v)
+{
+	v->key.right_key = false;
+	v->key.left_key = false;
+	v->mouse = false;
+}
 
 static void	go_(t_vars *v, int keycode)
 {
@@ -58,11 +65,7 @@ static int	key_hook(t_vars *data)
 		main_grafic(data);
 		mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);
 		if (data->mouse)
-		{
-			data->key.right_key = false;
-			data->key.left_key = false;
-			data->mouse = false;
-		}
+			clear_mouse (data);
 		mlx_mouse_hide();
 	}
 	return (0);
