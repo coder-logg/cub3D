@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:06:37 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/27 19:38:31 by cshanda          ###   ########.fr       */
+/*   Updated: 2021/11/28 12:13:46 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,6 @@ int	close_prog17(int keycode, t_vars *vars)
 	(void) keycode;
 	(void) vars;
 	exit(0);
-}
-
-void	create_hook(t_vars *vars)
-{
-	mlx_hook(vars->win, 2, 1L << 0, hook_keypress, vars);
-	mlx_hook(vars->win, 3, 1L << 0, hook_keyrel, vars);
-	mlx_hook(vars->win, 6, 1L << 0, mous_hook, vars);
-	mlx_hook(vars->win, 17, 1 << 17, close_prog17, vars);
-	mlx_loop_hook(vars->mlx, &key_hook, vars);
-	vars->img->img = mlx_new_image(vars->mlx, vars->display.x, vars->display.y);
-	vars->img->addr = mlx_get_data_addr(vars->img->img \
-			, &vars->img->bits_per_pixel, &vars->img->line_length \
-			, &vars->img->endian);
-	mlx_loop(vars->mlx);
 }
 
 void	clear_buff(t_vars *vars, t_param_gem *geom)
@@ -106,7 +92,7 @@ void	create_side(t_vars *vars, t_pos2d *map, t_pos2d step
 			map->y += step.y;
 			*side = 1;
 		}
-		if (vars->world_map[map->y][map->x] > 0)
+		if (vars->world_map[map->y][map->x] != 0)
 			hit = 1;
 	}
 }

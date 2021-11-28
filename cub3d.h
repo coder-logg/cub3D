@@ -147,6 +147,11 @@ void		display_put(t_vars *vars);
 void		create_y(t_vars *vars, t_point pos, t_param_x_a_r_s x);
 void		create_side(t_vars *vars, t_pos2d *map, t_pos2d step, int *side);
 void		clear_buff(t_vars *vars, t_param_gem *geom);
+void		rotate(t_vars *v, int keycode);
+int			**transporent(int **mass, int i_max);
+int			hook_keypress(int keycode, t_vars *data);
+int			hook_keyrel(int keycode, t_vars *data);
+int			close_prog17(int keycode, t_vars *vars);
 t_pos2d		write_dist_side(t_vars *vars, t_pos2d map,
 				t_point pos, t_point ray_dr);
 // parser
@@ -166,7 +171,4 @@ void		parse_map_line(t_vars *vars, char *line);
 void		invalid_value(char *key, char *msg);
 int			get_color(char *val, char *key);
 void		print_vars(t_vars *vars);
-int			**transporent(int **mass, int i_max);
-int			hook_keypress(int keycode, t_vars *data);
-int			hook_keyrel(int keycode, t_vars *data);
 #endif
