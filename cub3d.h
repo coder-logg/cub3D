@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/24 21:37:12 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/27 19:38:31 by cshanda          ###   ########.fr       */
+/*   Updated: 2021/11/28 13:26:35 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,8 +132,6 @@ typedef struct s_vars
 
 void		geom_pixel_put(t_data *data, t_point2d point);
 int			close_prog(int keycode, t_vars *vars);
-int			key_hook(t_vars *vars);
-int			mous_hook(int x, int y, t_vars *vars);
 t_vars		*init_vars(t_vars *vars);
 void		create_hook(t_vars *vars);
 int			geom_pixel_get(t_data *data, int x, int y);

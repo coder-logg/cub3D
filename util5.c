@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 18:06:37 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/28 12:13:46 by cshanda          ###   ########.fr       */
+/*   Updated: 2021/11/28 13:36:13 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,7 @@ void	display_put(t_vars *vars)
 	}
 }
 
-void	create_side(t_vars *vars, t_pos2d *map, t_pos2d step
-					, int	*side)
+void	create_side(t_vars *vars, t_pos2d *map, t_pos2d step, int	*side)
 {
 	int	hit;
 

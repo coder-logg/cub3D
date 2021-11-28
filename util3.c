@@ -32,7 +32,6 @@ int	**transporent(int **mass, int i_max)
 
 int	hook_keypress(int keycode, t_vars *data)
 {
-	printf("!\n");
 	if (keycode == 53)
 		return (close_prog(keycode, data));
 	if (keycode == 2)

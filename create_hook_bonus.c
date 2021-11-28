@@ -6,12 +6,12 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 11:13:38 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/28 12:53:23 by cshanda          ###   ########.fr       */
+/*   Updated: 2021/11/28 13:53:11 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h"
 
-void	go_(t_vars *v, int keycode)
+static void	go_(t_vars *v, int keycode)
 {
 	int		cf;
 	t_bool	si;
@@ -38,7 +38,7 @@ void	go_(t_vars *v, int keycode)
 			* (v->dir.y * (!si) + si * sin(v->plane.y)) * cf;
 }
 
-int	key_hook(t_vars *data)
+static int	key_hook(t_vars *data)
 {
 	if (data->key.right_key)
 		rotate(data, KEY_RIGHT);
@@ -63,11 +63,12 @@ int	key_hook(t_vars *data)
 			data->key.left_key = false;
 			data->mouse = false;
 		}
+		mlx_mouse_hide();
 	}
 	return (0);
 }
 
-int	mous_hook(int x, int y, t_vars *vars)
+static int	mous_hook(int x, int y, t_vars *vars)
 {
 	vars->mouse = true;
 	if (x > vars->mous_x)
