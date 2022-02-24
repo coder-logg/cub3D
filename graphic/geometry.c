@@ -6,10 +6,10 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 04:16:26 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/26 12:44:31 by cshanda          ###   ########.fr       */
+/*   Updated: 2022/02/24 13:26:58 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	geom_pixel_put(t_data *data, t_point2d point)
 {
@@ -40,10 +40,10 @@ t_text	geom_textyre_get(t_vars *vars, char *rel_p)
 	if (!img_t)
 		error("malloc error");
 	img_t->img = mlx_xpm_file_to_image(vars->mlx, rel_p, &t.size.x, &t.size.y);
-	if (img_t->img)
+	if (!img_t->img)
 		error("Load texture error");
-	img_t->addr = mlx_get_data_addr(img_t->img, &img_t->bits_per_pixel \
-	, &img_t->line_length, &img_t->endian);
+	img_t->addr = mlx_get_data_addr(img_t->img, &img_t->bits_per_pixel
+									, &img_t->line_length, &img_t->endian);
 	img = malloc(t.size.y * t.size.x * sizeof(t_uint32));
 	if (!img)
 		error("malloc error");

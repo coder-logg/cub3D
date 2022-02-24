@@ -6,11 +6,10 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 10:11:13 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/26 12:38:28 by cshanda          ###   ########.fr       */
+/*   Updated: 2022/02/24 13:41:37 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <printf.h>
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	create_y_1(t_vars *v, t_param_x_a_r_s x, t_pos2d draw
 					, t_point l_w_x)
@@ -33,7 +32,7 @@ void	create_y_1(t_vars *v, t_param_x_a_r_s x, t_pos2d draw
 	{
 		t.y = (int)tex_pos;
 		tex_pos += step;
-		if (v->texs[x.x_a.y].size.x * t.y + t.x >= 0 && v->texs[x.x_a.y].size.x \
+		if (v->texs[x.x_a.y].size.x * t.y + t.x >= 0 && v->texs[x.x_a.y].size.x
 		* t.y + t.x < v->texs[x.x_a.y].size.x * v->texs[x.x_a.y].size.y)
 			color = v->texs[x.x_a.y].texs[v->texs[x.x_a.y].size.x * t.y + t.x];
 		if (!color)
@@ -106,7 +105,7 @@ void	is_ray_dir(t_point ray_dir, t_point *delta)
 		delta->y = fabs(1 / ray_dir.y);
 }
 
-void	main_grafic(t_vars *vars)
+void	main_graphic(t_vars *vars)
 {
 	t_param_x_a_r_s	x;
 	t_param_gem		geo;
@@ -115,9 +114,9 @@ void	main_grafic(t_vars *vars)
 	x.x_a.x = -1;
 	while (++x.x_a.x < (int)vars->display.x)
 	{
-		geo.ray_dir.x = geo.dir.x + geo.plane.x \
+		geo.ray_dir.x = geo.dir.x + geo.plane.x
 		* (2 * x.x_a.x / (double)vars->display.x - 1);
-				geo.ray_dir.y = geo.dir.y + geo.plane.y \
+				geo.ray_dir.y = geo.dir.y + geo.plane.y
 				* (2 * x.x_a.x / (double)vars->display.x - 1);
 						geo.map.x = (int)(geo.pos.x);
 		geo.map.y = (int)(geo.pos.y);

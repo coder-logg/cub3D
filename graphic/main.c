@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	clear_var(t_vars *vars, t_bool del_img)
 {
@@ -52,7 +52,7 @@ int	main(int argc, char **argv)
 	parser(&vars, argv[1]);
 	vars.world_map = transporent(vars.world_map, vars.map_size.y);
 	vars.pozition.y = vars.map_size.y - vars.pozition.y;
-	main_grafic(&vars);
+	main_graphic(&vars);
 	mlx_put_image_to_window(vars.mlx, vars.win, vars.img->img, 0, 0);
 	create_hook(&vars);
 	clear_var(&vars, true);

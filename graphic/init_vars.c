@@ -9,7 +9,7 @@
 /*   Updated: 2021/11/28 13:53:19 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	init_mlx_params(t_vars *vars, t_pos2d *d_size)
 {

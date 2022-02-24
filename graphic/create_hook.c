@@ -6,10 +6,10 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 11:13:09 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/28 13:22:49 by                  ###   ########.fr       */
+/*   Updated: 2022/02/24 13:30:35 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "cub3d.h"
+#include "../cub3d.h"
 
 static void	go_(t_vars *v, int keycode)
 {
@@ -53,7 +53,7 @@ static int	key_hook(t_vars *data)
 	if (data->key.right_key || data->key.left_key || data->key.up_key \
 		|| data->key.down_key || data->key.str_l_key || data->key.str_r_key)
 	{
-		main_grafic(data);
+		main_graphic(data);
 		mlx_put_image_to_window(data->mlx, data->win, data->img->img, 0, 0);
 	}
 	return (0);

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include <printf.h>
-#include "cub3d.h"
+#include "../cub3d.h"
 
 int	**transporent(int **mass, int i_max)
 {

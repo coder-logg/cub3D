@@ -9,7 +9,7 @@
 /*   Updated: 2021/11/28 14:16:15 by cshanda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "cub3d.h"
+#include "../cub3d.h"
 
 static void	clear_mouse(t_vars *v)
 {

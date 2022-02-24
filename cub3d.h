@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/24 21:37:12 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/28 13:26:35 by                  ###   ########.fr       */
+/*   Updated: 2022/02/24 13:35:55 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int			close_prog(int keycode, t_vars *vars);
 t_vars		*init_vars(t_vars *vars);
 void		create_hook(t_vars *vars);
 int			geom_pixel_get(t_data *data, int x, int y);
-void		main_grafic(t_vars *vars);
+void		main_graphic(t_vars *vars);
 t_text		geom_textyre_get(t_vars *vars, char *rel_p);
 void		set_free(void **var, void *new);
 void		*chmllc(void *ptr);

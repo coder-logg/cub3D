@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include <printf.h>
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	rotate(t_vars *v, int keycode)
 {
