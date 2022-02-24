@@ -6,7 +6,7 @@
 /*   By: cshanda <cshanda@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/23 02:40:35 by cshanda           #+#    #+#             */
-/*   Updated: 2021/11/28 13:53:19 by                  ###   ########.fr       */
+/*   Updated: 2022/02/24 14:15:17 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../cub3d.h"
@@ -14,7 +14,7 @@
 void	init_mlx_params(t_vars *vars, t_pos2d *d_size)
 {
 	vars->mlx = mlx_init();
-	vars->win = mlx_new_window(vars->mlx, (*d_size).x, (*d_size).y, "Cube3D");
+	vars->win = mlx_new_window(vars->mlx, (*d_size).x, (*d_size).y, "Cub3d");
 	vars->img = malloc(sizeof(t_data));
 	if (!vars->img)
 		error("malloc err");

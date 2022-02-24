@@ -3,7 +3,7 @@ NO ./img/bluestone.xpm
  WE ./img/eagle.xpm
   EA ./img/purplestone.xpm
 
-  F 255,255,255
+  F 10, 10, 255
   C 225,30,0
 
         1111111111111
