@@ -1,8 +1,11 @@
 # CUB3D  
   
 Графический проект, использующий рейкастинг, по примеру игры 'Wolfenstein 3D'.  
+
 ![](./Screen_Shot.png)
+
 ----
+
 ## Основная часть
 <table>
     <tr><td>Program name</td><td>cub3D</td></tr>
